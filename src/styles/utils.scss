@@ -1,0 +1,73 @@
+$positions: top, bottom, left, right;
+$box-sizes: (
+    "100": 100%,
+    "75": 75%,
+    "50": 50%,
+    "25": 25%,
+    "0": 0
+);
+$spacing-sizes: (
+    "0": 0,
+    "1": 0.25rem,
+    "2": 0.5rem,
+    "3": 0.75rem,
+    "4": 1rem
+);
+
+@each $position in $positions {
+  .text-align-#{$position} {
+    text-align: $position;
+  }
+}
+
+@each $name, $size in $box-sizes {
+  .w-#{$name} {
+    width: $size;
+  }
+
+  .h-#{$name} {
+    height: $size;
+  }
+}
+
+@each $name, $size in $spacing-sizes {
+  .m-#{$name} {
+    margin: $size;
+  }
+
+  .p-#{$name} {
+    padding: $size;
+  }
+
+  .ml-#{$name} {
+    margin-left: $size;
+  }
+
+  .mr-#{$name} {
+    margin-right: $size;
+  }
+
+  .mt-#{$name} {
+    margin-top: $size;
+  }
+
+  .mb-#{$name} {
+    margin-bottom: $size
+  }
+
+  .pl-#{$name} {
+    padding-left: $size;
+  }
+
+  .pr-#{$name} {
+    padding-right: $size;
+  }
+
+  .pt-#{$name} {
+    padding-top: $size;
+  }
+
+  .pb-#{name} {
+    padding-bottom: $size;
+  }
+}
