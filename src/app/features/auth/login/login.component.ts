@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
-import { LoginFormViewModel } from '../../../models/forms/authentication-form.view-model';
+import { LoginFormViewModel } from '../../../shared/models/forms/authentication-form.view-model';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({

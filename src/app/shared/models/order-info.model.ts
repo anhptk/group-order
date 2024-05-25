@@ -1,16 +1,18 @@
+import { MemberInfo } from "./member-info.model";
+
 export interface OrderInfo {
     id: number;
-    memberId: number;
     createdAt: string;
     isPaid: boolean;
     items: OrderItem[];
-    groupOrderId?: number;
+    orderedBy: MemberInfo;
 }
 
 export interface OrderItem {
     name: string;
     unitPrice: number;
     quantity: number;
+    note?: string;
 }
 
 export interface CreateOrderInfoPayload {

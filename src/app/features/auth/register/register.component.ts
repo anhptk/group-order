@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegisterFormViewModel } from '../../../models/forms/authentication-form.view-model';
+import { RegisterFormViewModel } from '../../../shared/models/forms/authentication-form.view-model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';

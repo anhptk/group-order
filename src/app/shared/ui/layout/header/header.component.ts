@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { LoginComponent } from '../../auth/login/login.component';
-import { RegisterComponent } from '../../auth/register/register.component';
+import { LoginComponent } from '../../../../features/auth/login/login.component';
+import { RegisterComponent } from '../../../../features/auth/register/register.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatButtonModule, MatDialogModule],
+  imports: [MatButtonModule, MatDialogModule, MatDividerModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
