@@ -7,3 +7,9 @@ export class MemberInfo {
         Object.assign(this, data);
     }
 }
+
+export interface CreateMemberPayload {
+    name: string;
+    email: string;
+    password: string;
+}

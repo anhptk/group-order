@@ -4,6 +4,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MemberService } from '../../../shared/services/api/member.service';
+import { CreateMemberPayload } from '../../../shared/models/member-info.model';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 export class RegisterComponent {
   public mainForm: FormGroup<RegisterFormViewModel>;
 
-  constructor() {
+  constructor(
+    private readonly _memberService: MemberService
+  ) {
     this._constructMainForm();
   }
 
@@ -25,6 +29,23 @@ export class RegisterComponent {
       name: new FormControl<string>('', [Validators.required]),
       password: new FormControl<string>('', [Validators.required]),
       confirmPassword: new FormControl<string>('', [Validators.required])
+    });
+  }
+
+  public submit(): void {
+    if (this.mainForm.invalid) {
+      return;
+    }
+
+    const payload: CreateMemberPayload = {
+      email: this.mainForm.value.email,
+      name: this.mainForm.value.name,
+      password: this.mainForm.value.password
+    }
+
+    this._memberService.register(payload).subscribe(() => {
+      // Do something after successful registration
+      console.log('Registration successful!')
     });
   }
 }
