@@ -1,5 +1,5 @@
 export enum OrderStatusEnum {
     Draft = 'Draft',
-    Submitted = 'Submitted',
+    InProgress = 'InProgress',
     Completed = 'Completed'
 }

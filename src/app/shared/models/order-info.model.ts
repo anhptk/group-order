@@ -3,9 +3,11 @@ import { OrderStatusEnum } from "../enums/order-status.enum";
 export interface OrderInfo {
     id: number;
     memberId: number;
-    createdAt: Date;
+    createdAt: string;
     isPaid: boolean;
     items: OrderItem[];
+    status: OrderStatusEnum;
+    groupOrderId?: number;
 }
 
 export interface OrderItem {
@@ -14,14 +16,15 @@ export interface OrderItem {
     quantity: number;
 }
 
-export class GroupOrderInfo {
-    public id: number;
-    public hostMemberId: number;
-    public createdAt: Date;
-    public orders: OrderInfo[] = [];
-    public status: OrderStatusEnum = OrderStatusEnum.Draft;
+export interface CreateOrderInfoPayload {
+    memberId: number;
+    items: OrderItem[];
+}
 
-    constructor(data: Partial<GroupOrderInfo>) {
-        Object.assign(this, data)
-    }
+export interface QueryOrderInfoParams {
+    memberId?: number;
+    minCreatedDate?: string;
+    maxCreatedDate?: string;
+    groupOrderId?: string;
+    isPaid?: boolean;
 }
