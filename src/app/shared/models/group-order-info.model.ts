@@ -15,7 +15,6 @@ export class GroupOrderInfo {
 }
 
 export interface CreateGroupOrderInfoPayload {
-    hostMemberId: number;
     orderIds: number[];
 }
 

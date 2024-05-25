@@ -27,4 +27,9 @@ export class GroupOrderInfoService {
   public complete(id: number, payload: CompleteGroupOrderInfoPayload): Observable<void> {
     return this._requestHelper.put(`/group-orders/${id}/complete`, payload);
   }
+
+  public delete(id: number): Observable<void> {
+    // Delete and release all OrderInfo(s) in the group order
+    return this._requestHelper.delete(`/group-orders/${id}`);
+  }
 }

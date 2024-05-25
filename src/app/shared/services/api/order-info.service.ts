@@ -23,4 +23,8 @@ export class OrderInfoService {
   public delete(id: number): Observable<void> {
     return this._requestHelper.delete(`/orders/${id}`);
   }
+
+  public updatePaymentStatus(id: number, isPaid: boolean): Observable<void> {
+    return this._requestHelper.put(`/orders/${id}/payment`, { isPaid });
+  }
 }
