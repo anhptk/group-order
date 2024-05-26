@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateOrderInfoPayload, OrderInfo, QueryOrderInfoParams } from '../../models/order-info.model';
+import { CreateOrderInfoPayload, OrderInfo, QueryOrderInfoParams } from '../../models/api/order-info.model';
 import { Observable } from 'rxjs';
 import { RequestHelperService } from '../utils/request-helper.service';
 

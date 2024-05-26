@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestHelperService } from '../utils/request-helper.service';
 import { Observable } from 'rxjs';
-import { CompleteGroupOrderInfoPayload, CreateGroupOrderInfoPayload, GroupOrderInfo, QueryGroupOrderInfoParams } from '../../models/group-order-info.model';
+import { CompleteGroupOrderInfoPayload, CreateGroupOrderInfoPayload, GroupOrderInfo, QueryGroupOrderInfoParams } from '../../models/api/group-order-info.model';
 
 @Injectable({
   providedIn: 'root'

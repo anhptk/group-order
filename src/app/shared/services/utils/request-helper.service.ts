@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { AuthenticationService } from '../auth/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { environment } from '../../../../environments/environment';
 export class RequestHelperService {
 
   constructor(
-    private readonly _httpClient: HttpClient
+    private readonly _httpClient: HttpClient,
+    private readonly _authService: AuthenticationService
   ) { }
 
   public get(url: string, queryOptions: any = {}): Observable<any> {
@@ -42,6 +44,14 @@ export class RequestHelperService {
   }
 
   private _constructRequestHeaders(): HttpHeaders {
-    return new HttpHeaders();
+    const headers = new HttpHeaders();
+
+    if (this._authService.accessToken.value) {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${this._authService.accessToken.getValue()}`
+      });
+    }
+
+    return headers;
   }
 }

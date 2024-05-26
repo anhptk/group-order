@@ -1,5 +1,13 @@
 <section class="text-align-right p-2">
-     <button mat-flat-button color="primary" class="mr-2" (click)="openLoginDialog()">Login</button>
-     <button mat-raised-button color="primary" (click)="openRegisterDialog()">Register</button>
+     @if (currentUser()) {
+          <div>
+               <span class="mr-2">Howdy, {{ currentUser().name }}!</span>
+               <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+          </div>
+     } @else {
+          <button mat-flat-button color="primary" class="mr-2" (click)="openLoginDialog()">Login</button>
+          <button mat-raised-button color="primary" (click)="openRegisterDialog()">Register</button>
+     }
+
 </section>
 <mat-divider></mat-divider>

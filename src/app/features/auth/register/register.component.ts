@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RegisterFormViewModel } from '../../../shared/models/forms/authentication-form.view-model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MemberService } from '../../../shared/services/api/member.service';
-import { CreateMemberPayload } from '../../../shared/models/member-info.model';
+import { SecurityService } from '../../../shared/services/api/sercurity.service';
+import { CreateMemberPayload } from '../../../shared/models/api/member-info.model';
+import { finalize } from 'rxjs';
+import { SubmitButtonComponent } from '../../../shared/ui/submit-button/submit-button.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, MatInputModule, ReactiveFormsModule],
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, MatInputModule, ReactiveFormsModule, SubmitButtonComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   public mainForm: FormGroup<RegisterFormViewModel>;
+  public isSubmitting = false;
 
   constructor(
-    private readonly _memberService: MemberService
+    private readonly _securityService: SecurityService,
+    private readonly _dialogRef: MatDialogRef<RegisterComponent>
   ) {
     this._constructMainForm();
   }
@@ -43,9 +47,11 @@ export class RegisterComponent {
       password: this.mainForm.value.password
     }
 
-    this._memberService.register(payload).subscribe(() => {
-      // Do something after successful registration
-      console.log('Registration successful!')
+    this.isSubmitting = true;
+    this._securityService.register(payload)
+    .pipe(finalize(() => this.isSubmitting = false))
+    .subscribe(() => {
+      this._dialogRef.close(true);
     });
   }
 }

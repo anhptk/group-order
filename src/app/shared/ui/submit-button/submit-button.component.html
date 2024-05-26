@@ -1,0 +1,6 @@
+<button mat-flat-button [disabled]="disabled() || isSubmitting()" (click)="action.emit()">
+    @if (isSubmitting()) {
+      <mat-icon><mat-spinner diameter="20"></mat-spinner></mat-icon>
+    }
+    <ng-content></ng-content>
+</button>

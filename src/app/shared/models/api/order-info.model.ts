@@ -4,6 +4,7 @@ export interface OrderInfo {
     id: number;
     createdAt: string;
     isPaid: boolean;
+    
     items: OrderItem[];
     orderedBy: MemberInfo;
 }
