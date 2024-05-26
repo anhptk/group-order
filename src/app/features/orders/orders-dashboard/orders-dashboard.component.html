@@ -1,16 +1,21 @@
-
-
 <h1 class="text-align-center">Orders</h1>
 
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Today">
-        <ng-template matTabContent>
-            <div class="p-4">
-                <button mat-flat-button color="primary" class="mr-2">Create order</button>
-                <button mat-flat-button color="accent" disabled>Create group order</button>
-            </div>
+        <div class="p-4">
+            <button mat-flat-button color="primary" class="mr-2" (click)="openCreateOrderDialog()">Create order</button>
+            <button mat-flat-button color="accent" disabled>Create group order</button>
+        </div>
+        @if (currentUser) {
+            <app-orders-table [query]="todayOrderQuery"></app-orders-table>
+        } @else {
+            Login to view content
+        }
+    </mat-tab>
 
-            <app-orders-table></app-orders-table>
-          </ng-template>
+    <mat-tab label="Passed days">
+        <ng-template matTabContent>
+            <app-orders-table [query]="passedOrderQuery"></app-orders-table>
+        </ng-template>
     </mat-tab>
 </mat-tab-group>

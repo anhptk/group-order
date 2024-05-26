@@ -1,4 +1,4 @@
-import { Component, afterRender, inject } from '@angular/core';
+import { AfterContentInit, Component, afterRender, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LayoutComponent } from "./shared/ui/layout/layout.component";
 import { AppDataService } from './shared/services/auth/app-data.service';
@@ -12,6 +12,10 @@ import { SecurityService } from './shared/services/api/sercurity.service';
     styleUrl: './app.component.scss',
     imports: [RouterOutlet, LayoutComponent]
 })
-export class AppComponent {
+export class AppComponent implements AfterContentInit {
+    appData = inject(AppDataService);
 
+    ngAfterContentInit(): void {
+        this.appData.initializeUser();
+    }
 }

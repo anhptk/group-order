@@ -2,16 +2,17 @@ import { MemberInfo } from "./member-info.model";
 
 export interface OrderInfo {
     id: number;
-    createdAt: string;
-    isPaid: boolean;
+    created_at: string;
+    is_paid: boolean;
     
     items: OrderItem[];
-    orderedBy: MemberInfo;
+    ordered_by: MemberInfo;
+    group_order: number;
 }
 
 export interface OrderItem {
     name: string;
-    unitPrice: number;
+    unit_price: number;
     quantity: number;
     note?: string;
 }
@@ -21,9 +22,9 @@ export interface CreateOrderInfoPayload {
 }
 
 export interface QueryOrderInfoParams {
-    memberId?: number;
-    minCreatedDate?: string;
-    maxCreatedDate?: string;
-    groupOrderId?: string;
-    isPaid?: boolean;
+    member?: number;
+    created_at_after?: string;
+    created_at_before?: string;
+    group_order?: number;
+    is_paid?: boolean;
 }

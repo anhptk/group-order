@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MemberInfo } from '../../models/api/member-info.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { SecurityService } from '../api/sercurity.service';
 
@@ -18,6 +18,19 @@ export class AppDataService {
     private readonly _authService: AuthenticationService,
     private readonly _securityService: SecurityService
   ) { }
+
+  public initializeUser(): void {
+    const userToken = this._authService.currentRefreshToken;
+
+    if (userToken) {
+      this._securityService.refreshAccessToken({refresh: userToken})
+      .pipe(switchMap((response) => {
+        this._authService.refreshToken(response);
+        return this._securityService.getCurrentUser()
+    }))
+      .subscribe((user) => this.fetchUser(user));
+    }
+  }
 
   public get currentUser$(): Observable<MemberInfo | null> {
     return this._currentUser$.asObservable();
