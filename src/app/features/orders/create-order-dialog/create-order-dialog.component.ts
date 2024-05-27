@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderItemFormViewModel } from '../../../shared/models/forms/order-info-form.view-model';
-import { MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -14,7 +14,7 @@ import { finalize } from 'rxjs';
 @Component({
   selector: 'app-create-order-dialog',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatIcon, MatButtonModule, ReactiveFormsModule, MatInputModule, SubmitButtonComponent, MatDivider],
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatIcon, MatButtonModule, ReactiveFormsModule, MatInputModule, SubmitButtonComponent, MatDivider, MatDialogClose],
   templateUrl: './create-order-dialog.component.html',
   styleUrl: './create-order-dialog.component.scss'
 })
@@ -26,13 +26,13 @@ export class CreateOrderDialogComponent {
   constructor(
     private _orderService: OrderInfoService,
     private _dialogRef: MatDialogRef<CreateOrderDialogComponent>
-  ) {}
+  ) { }
 
   public addRowForm(): void {
     const row = new FormGroup<OrderItemFormViewModel>({
       name: new FormControl(null, [Validators.required]),
       unitPrice: new FormControl(null, [Validators.required, Validators.min(0)]),
-      quantity: new FormControl(1, [Validators.required,Validators.min(1)]),
+      quantity: new FormControl(1, [Validators.required, Validators.min(1)]),
       note: new FormControl(null)
     });
 
@@ -58,13 +58,15 @@ export class CreateOrderDialogComponent {
   }
 
   private _preparePayload(): CreateOrderInfoPayload {
-    return {items: this.mainForm.controls.map((control: FormGroup<OrderItemFormViewModel>) => {
-      return {
-        name: control.value.name,
-        unit_price: control.value.unitPrice,
-        quantity: control.value.quantity,
-        note: control.value.note
-      };
-    })};
+    return {
+      items: this.mainForm.controls.map((control: FormGroup<OrderItemFormViewModel>) => {
+        return {
+          name: control.value.name,
+          unit_price: control.value.unitPrice,
+          quantity: control.value.quantity,
+          note: control.value.note
+        };
+      })
+    };
   }
 }

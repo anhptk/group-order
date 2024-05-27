@@ -1,3 +1,4 @@
+import { OrderStatusEnum } from "../../enums/order-status.enum";
 import { MemberInfo } from "./member-info.model";
 
 export interface OrderInfo {
@@ -8,6 +9,7 @@ export interface OrderInfo {
     items: OrderItem[];
     ordered_by: MemberInfo;
     group_order: number;
+    status: OrderStatusEnum;
 }
 
 export interface OrderItem {
