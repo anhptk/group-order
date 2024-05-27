@@ -4,12 +4,12 @@ import { OrderInfo } from "./order-info.model";
 
 export class GroupOrderInfo {
   public id: number;
-  public createdAt: string;
+  public created_at: string;
   public orders: OrderInfo[] = [];
   public status: OrderStatusEnum = OrderStatusEnum.Draft;
-  public actualAmount?: number;
+  public actual_amount?: number;
 
-  public hostMember: MemberInfo;
+  public host_member: MemberInfo;
 
   constructor(data: Partial<GroupOrderInfo>) {
     Object.assign(this, data)
@@ -17,17 +17,17 @@ export class GroupOrderInfo {
 }
 
 export interface CreateGroupOrderInfoPayload {
-  orderIds: number[];
+  orders: number[];
 }
 
 export interface QueryGroupOrderInfoParams {
-  hostMemberId?: number;
-  minCreatedDate?: string;
-  maxCreatedDate?: string;
+  host_member?: number;
+  created_at_after?: string;
+  created_at_before?: string;
   status?: OrderStatusEnum;
 }
 
 export interface CompleteGroupOrderInfoPayload {
-  orderIds?: number[];
-  actualAmount?: number;
+  orders?: number[];
+  actual_amount?: number;
 }

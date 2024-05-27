@@ -9,6 +9,9 @@ import { AppDataService } from '../../../shared/services/auth/app-data.service';
 import { DateTimeHelperService } from '../../../shared/services/utils/date-time-helper.service';
 import { CreateOrderDialogComponent } from '../create-order-dialog/create-order-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { OrderInfoViewModel } from '../../../shared/models/view/order-info.view-model';
+import { ConfirmationDialogComponent } from '../../../shared/ui/confirmation-dialog/confirmation-dialog.component';
+import { GroupOrderInfoService } from '../../../shared/services/api/group-order-info.service';
 
 @Component({
   selector: 'app-orders-dashboard',
@@ -21,13 +24,15 @@ export class OrdersDashboardComponent {
   public currentUser: MemberInfo | null = null;
   public todayOrderQuery: QueryOrderInfoParams;
   public passedOrderQuery: QueryOrderInfoParams;
+  public selectedItems: Set<number> = new Set();
 
-  @ViewChild(OrdersTableComponent, {static: false}) public orderTable: OrdersTableComponent;
+  @ViewChild(OrdersTableComponent, { static: false }) public orderTable: OrdersTableComponent;
 
   constructor(
     private _appData: AppDataService,
     private _dateTimeHelper: DateTimeHelperService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _groupOrderService: GroupOrderInfoService
   ) {
     this.todayOrderQuery = {
       created_at_after: this._dateTimeHelper.toDateString(new Date())
@@ -48,6 +53,35 @@ export class OrdersDashboardComponent {
     dialog.afterClosed().subscribe(result => {
       if (result) {
         this.orderTable.refresh();
+      }
+    });
+  }
+
+  public selectItem(itemIds: Set<number>): void {
+    this.selectedItems = itemIds;
+  }
+
+  public copyOrder(order: OrderInfoViewModel): void {
+    const dialog = this._dialog.open(CreateOrderDialogComponent, {
+      data: order
+    });
+
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.orderTable.refresh();
+      }
+    });
+  }
+
+  public createGroupOrder(): void {
+    const confirmDialog = this._dialog.open(ConfirmationDialogComponent);
+
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this._groupOrderService.create({ orders: Array.from(this.selectedItems) }).subscribe(() => {
+          this.orderTable.refresh();
+          this.selectedItems.clear();
+        });
       }
     });
   }

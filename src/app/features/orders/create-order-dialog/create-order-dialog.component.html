@@ -10,7 +10,7 @@
         
         <mat-form-field class="w-100">
             <mat-label>Unit price</mat-label>
-            <input matInput type="number" placeholder="Unit price" formControlName="unitPrice">
+            <input matInput type="number" placeholder="Unit price (in thousands VND)" formControlName="unitPrice">
         </mat-form-field>
 
         <mat-form-field class="w-100">
@@ -23,8 +23,17 @@
             <textarea matInput placeholder="Note" formControlName="note"></textarea>
         </mat-form-field>
     </form>
+
+    <div class="w-100 text-align-right">
+        <button mat-flat-button color="primary" class="m-2" aria-label="Remove item" (click)="removeRowForm($index)">
+            <mat-icon>cancel</mat-icon>
+            Remove
+        </button>
+    </div>
+
     <mat-divider class="mb-2"></mat-divider>
     }
+    
     <button mat-flat-button color="primary" class="m-2" aria-label="Add row" (click)="addRowForm()">
         <mat-icon>add</mat-icon>
         Item
@@ -34,7 +43,7 @@
 
 <mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close class="mr-2">Close</button>
-    <app-submit-button [disabled]="!mainForm?.valid" (action)="create()"
+    <app-submit-button [disabled]="!mainForm.valid || !mainForm.dirty" (action)="create()"
         [isSubmitting]="isSubmitting">Create
     </app-submit-button>
 </mat-dialog-actions>

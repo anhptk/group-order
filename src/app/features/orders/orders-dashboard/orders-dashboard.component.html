@@ -4,10 +4,10 @@
     <mat-tab label="Today">
         <div class="p-4">
             <button mat-flat-button color="primary" class="mr-2" (click)="openCreateOrderDialog()">Create order</button>
-            <button mat-flat-button color="accent" disabled>Create group order</button>
+            <button mat-flat-button color="accent" [disabled]="!selectedItems.size" (click)="createGroupOrder()">Create group order</button>
         </div>
         @if (currentUser) {
-            <app-orders-table [query]="todayOrderQuery"></app-orders-table>
+            <app-orders-table [query]="todayOrderQuery" (selectedChange)="selectItem($event)" (copyOrder)="copyOrder($event)"></app-orders-table>
         } @else {
             Login to view content
         }

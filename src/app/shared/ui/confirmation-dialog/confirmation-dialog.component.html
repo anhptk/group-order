@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Confirmation</h2>
+
+<mat-dialog-content>
+    Are you sure you want to process?
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close class="mr-2">No</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="true">Yes</button>
+</mat-dialog-actions>
