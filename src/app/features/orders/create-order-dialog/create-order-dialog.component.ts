@@ -33,6 +33,8 @@ export class CreateOrderDialogComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this._bindData();
+    } else {
+      this.addRowForm();
     }
   }
 

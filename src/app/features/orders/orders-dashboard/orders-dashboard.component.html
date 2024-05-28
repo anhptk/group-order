@@ -2,20 +2,25 @@
 
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Today">
-        <div class="p-4">
-            <button mat-flat-button color="primary" class="mr-2" (click)="openCreateOrderDialog()">Create order</button>
-            <button mat-flat-button color="accent" [disabled]="!selectedItems.size" (click)="createGroupOrder()">Create group order</button>
-        </div>
-        @if (currentUser) {
-            <app-orders-table [query]="todayOrderQuery" (selectedChange)="selectItem($event)" (copyOrder)="copyOrder($event)"></app-orders-table>
+        @if (currentUser$ | async) {
+            <div class="p-4">
+                <button mat-flat-button color="primary" class="mr-2 mb-2" (click)="openCreateOrderDialog()">Create order</button>
+                <button mat-flat-button color="accent" class="mb-2" [disabled]="!selectedItems.size" (click)="createGroupOrder()">Create group order</button>
+            </div>
+
+            <app-orders-table [hideDate]="true" [query]="todayOrderQuery" (selectedChange)="selectItem($event)" (copyOrder)="copyOrder($event)"></app-orders-table>
         } @else {
-            Login to view content
+            <div class="m-4">Login to view content.</div>
         }
     </mat-tab>
 
     <mat-tab label="Passed days">
         <ng-template matTabContent>
-            <app-orders-table [query]="passedOrderQuery"></app-orders-table>
+            @if (currentUser$ | async) {
+                <app-orders-table [hideDate]="false" [query]="passedOrderQuery" (copyOrder)="copyOrder($event)"></app-orders-table>
+            } @else {
+                <div class="m-4">Login to view content.</div>
+            }
         </ng-template>
     </mat-tab>
 </mat-tab-group>

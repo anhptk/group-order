@@ -6,12 +6,12 @@ import { RegisterComponent } from '../../../../features/auth/register/register.c
 import { MatDividerModule } from '@angular/material/divider';
 import { MemberInfo } from '../../../models/api/member-info.model';
 import { AppDataService } from '../../../services/auth/app-data.service';
-import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatButtonModule, MatDialogModule, MatDividerModule],
+  imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

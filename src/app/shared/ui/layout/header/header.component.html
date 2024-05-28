@@ -1,12 +1,16 @@
 <section class="text-align-right p-2">
      @if (currentUser()) {
-          <div>
-               <span class="mr-2">Howdy, {{ currentUser().name }}!</span>
-               <button mat-raised-button color="warn" (click)="logout()">Logout</button>
-          </div>
+     <div>
+          <span class="mr-2">Howdy, {{ currentUser().name }}!</span>
+          <a mat-raised-button routerLink="/orders" class="mr-2 mb-2">Orders</a>
+          <!-- <a mat-raised-button routerLink="/group-orders" class="mr-2 mb-2">Group orders</a> -->
+          <button mat-raised-button color="warn" (click)="logout()" class="mb-2">Logout</button>
+     </div>
      } @else {
+     <div class="m-2">
           <button mat-flat-button color="primary" class="mr-2" (click)="openLoginDialog()">Login</button>
           <button mat-raised-button color="primary" (click)="openRegisterDialog()">Register</button>
+     </div>
      }
 
 </section>

@@ -1,0 +1,21 @@
+<h1 class="text-align-center">Group orders</h1>
+
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Today">
+        @if (currentUser$ | async) {
+
+        } @else {
+            <div class="m-4">Login to view content.</div>
+        }
+    </mat-tab>
+
+    <mat-tab label="Passed days">
+        <ng-template matTabContent>
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab label="Mine">
+        <ng-template matTabContent>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

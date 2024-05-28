@@ -12,18 +12,22 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderInfoViewModel } from '../../../shared/models/view/order-info.view-model';
 import { ConfirmationDialogComponent } from '../../../shared/ui/confirmation-dialog/confirmation-dialog.component';
 import { GroupOrderInfoService } from '../../../shared/services/api/group-order-info.service';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-orders-dashboard',
   standalone: true,
-  imports: [MatTabsModule, MatCardModule, MatButtonModule, OrdersTableComponent, MatDialogModule],
+  imports: [MatTabsModule, MatCardModule, MatButtonModule, OrdersTableComponent, MatDialogModule, CommonModule],
   templateUrl: './orders-dashboard.component.html',
   styleUrl: './orders-dashboard.component.scss'
 })
 export class OrdersDashboardComponent {
-  public currentUser: MemberInfo | null = null;
+  public currentUser$: Observable<MemberInfo | null>;
+
   public todayOrderQuery: QueryOrderInfoParams;
   public passedOrderQuery: QueryOrderInfoParams;
+
   public selectedItems: Set<number> = new Set();
 
   @ViewChild(OrdersTableComponent, { static: false }) public orderTable: OrdersTableComponent;
@@ -34,6 +38,8 @@ export class OrdersDashboardComponent {
     private _dialog: MatDialog,
     private _groupOrderService: GroupOrderInfoService
   ) {
+    this.currentUser$ = this._appData.currentUser$;
+
     this.todayOrderQuery = {
       created_at_after: this._dateTimeHelper.toDateString(new Date())
     };
@@ -41,10 +47,6 @@ export class OrdersDashboardComponent {
     this.passedOrderQuery = {
       created_at_before: this._dateTimeHelper.toDateString(new Date())
     };
-  }
-
-  public ngOnInit(): void {
-    this._appData.currentUser$.subscribe(user => this.currentUser = user);
   }
 
   public openCreateOrderDialog(): void {
