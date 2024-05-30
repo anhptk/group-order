@@ -4,8 +4,9 @@
 
 .mat-column-items {
     width: 50%;
+    min-width: 250px;
 }
 
-.mat-column-actions {
+.mat-column-actions, .mat-column-subtotal, .mat-column-status {
     width: 10%
 }
