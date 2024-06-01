@@ -5,7 +5,7 @@ import { OrderInfo } from "./order-info.model";
 export class GroupOrderInfo {
   public id: number;
   public created_at: string;
-  public orders: number[] = [];
+  public orders: OrderInfo[] = [];
   public status: OrderStatusEnum;
   public actual_amount?: number;
 

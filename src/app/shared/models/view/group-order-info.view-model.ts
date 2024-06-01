@@ -2,13 +2,13 @@ import { OrderStatusEnum } from "../../enums/order-status.enum";
 import { GroupOrderInfo } from "../api/group-order-info.model";
 import { OrderInfo } from "../api/order-info.model";
 import { OrderInfoViewModel } from "./order-info.view-model";
+import { MemberInfo } from "../api/member-info.model";
 
 export class GroupOrderInfoViewModel {
   id: number;
   createdAt: string;
-  hostName: string;
+  hostMember: MemberInfo;
   status: OrderStatusEnum;
-  orderIds: number[] = [];
   orders: OrderInfoViewModel[] = [];
   actualAmount?: number;
   loading: boolean;
@@ -21,15 +21,11 @@ export class GroupOrderInfoViewModel {
     return new GroupOrderInfoViewModel({
       id: data.id,
       createdAt: data.created_at,
-      hostName: data.host_member.name,
+      hostMember: data.host_member,
       status: data.status,
-      orderIds: data.orders,
-      actualAmount: data.actual_amount
+      actualAmount: data.actual_amount,
+      orders: data.orders.map(order => OrderInfoViewModel.createFromApiModel(order))
     });
-  }
-
-  public setOrders(orders: OrderInfo[]) {
-    this.orders = orders.map(order => OrderInfoViewModel.createFromApiModel(order));
   }
 
   public get total(): number {

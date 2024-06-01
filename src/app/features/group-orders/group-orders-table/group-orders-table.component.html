@@ -6,7 +6,7 @@
   </ng-container>
   <ng-container matColumnDef="host">
     <th mat-header-cell *matHeaderCellDef> Host </th>
-    <td mat-cell *matCellDef="let element"> {{element.hostName}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.hostMember.name}} </td>
   </ng-container>
   <ng-container matColumnDef="amount">
     <th mat-header-cell *matHeaderCellDef> Actual amount </th>
@@ -19,9 +19,11 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="warn" aria-label="Complete" matTooltip="Copy" (click)="$event.stopPropagation()">
+      @if (currentUserId === element.hostMember.id && element.status === OrderStatusEnum.InProgress) {
+      <button mat-icon-button color="warn" aria-label="Complete" matTooltip="Complete" (click)="$event.stopPropagation(); complete(element)">
         <mat-icon>task_alt</mat-icon>
       </button>
+      }
     </td>
   </ng-container>
 
@@ -57,7 +59,7 @@
               <tr>
                 <td>{{item.orderedBy.name}}</td>
                 <td>{{item.subtotal}}</td>
-              </tr>   
+              </tr>
             }
           </table>
           }
@@ -69,7 +71,7 @@
   <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
   <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="expanding-row"
     [class.expanded-row]="expandedElement === element"
-    (click)="expandedElement = expandedElement === element ? null : element; expandRow(element)">
+    (click)="expandedElement = expandedElement === element ? null : element">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
 </table>

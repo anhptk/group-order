@@ -7,6 +7,8 @@ import { GroupOrderInfoService } from '../../../shared/services/api/group-order-
 import { GroupOrderInfoViewModel } from '../../../shared/models/view/group-order-info.view-model';
 import { OrderInfoService } from '../../../shared/services/api/order-info.service';
 import { QueryGroupOrderInfoParams } from '../../../shared/models/api/group-order-info.model';
+import { AppDataService } from "../../../shared/services/auth/app-data.service";
+import { OrderStatusEnum } from '../../../shared/enums/order-status.enum';
 
 @Component({
   selector: 'app-group-orders-table',
@@ -24,16 +26,21 @@ import { QueryGroupOrderInfoParams } from '../../../shared/models/api/group-orde
 })
 export class GroupOrdersTableComponent {
   @Input() queryParams: QueryGroupOrderInfoParams;
-  
+  readonly OrderStatusEnum = OrderStatusEnum;
+
   dataSource: GroupOrderInfoViewModel[] = [];
   columnsToDisplay = ['time', 'host', 'amount', 'status', 'actions'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: GroupOrderInfoViewModel | null;
 
+  public currentUserId: number;
+
   constructor(
     private _groupOrderService: GroupOrderInfoService,
-    private _orserService: OrderInfoService
-  ) {}
+    private _appData: AppDataService
+  ) {
+    this._appData.currentUser$.subscribe(user => this.currentUserId = user.id);
+  }
 
   ngOnInit() {
     this._loadData();
@@ -45,18 +52,22 @@ export class GroupOrdersTableComponent {
     });
   }
 
-  public expandRow(row: GroupOrderInfoViewModel): void {
-    if (!row.orders.length) {
-      this._loadOrderItems(row);
-    }
+  public complete(groupOrder: GroupOrderInfoViewModel): void {
+    this._groupOrderService.complete(
+      groupOrder.id,
+      {
+        orders: groupOrder.orders.map(order => order.id),
+        actual_amount: groupOrder.total
+      }).subscribe(() => {
+        this._loadRow(groupOrder);
+    });
   }
 
-  private _loadOrderItems(row: GroupOrderInfoViewModel): void {
+  private _loadRow(row: GroupOrderInfoViewModel): void {
     row.loading = true;
 
-    this._orserService.query({group_order: row.id}).subscribe(data => {
-      row.setOrders(data);
-      row.loading = false;
+    this._groupOrderService.getDetails(row.id).subscribe(data => {
+      row = GroupOrderInfoViewModel.createFromApiModel(data);
     });
   }
 }
