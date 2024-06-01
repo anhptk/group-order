@@ -5,8 +5,8 @@ import { OrderInfo } from "./order-info.model";
 export class GroupOrderInfo {
   public id: number;
   public created_at: string;
-  public orders: OrderInfo[] = [];
-  public status: OrderStatusEnum = OrderStatusEnum.Draft;
+  public orders: number[] = [];
+  public status: OrderStatusEnum;
   public actual_amount?: number;
 
   public host_member: MemberInfo;
@@ -28,6 +28,6 @@ export interface QueryGroupOrderInfoParams {
 }
 
 export interface CompleteGroupOrderInfoPayload {
-  orders?: number[];
+  orders: number[];
   actual_amount?: number;
 }

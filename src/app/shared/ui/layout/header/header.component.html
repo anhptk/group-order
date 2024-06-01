@@ -1,17 +1,29 @@
 <section class="text-align-right p-2">
-     @if (currentUser()) {
-     <div>
-          <span class="mr-2">Howdy, {{ currentUser().name }}!</span>
-          <a mat-raised-button routerLink="/orders" class="mr-2 mb-2">Orders</a>
-          <!-- <a mat-raised-button routerLink="/group-orders" class="mr-2 mb-2">Group orders</a> -->
-          <button mat-raised-button color="warn" (click)="logout()" class="mb-2">Logout</button>
-     </div>
-     } @else {
-     <div class="m-2">
-          <button mat-flat-button color="primary" class="mr-2" (click)="openLoginDialog()">Login</button>
-          <button mat-stroked-button color="primary" (click)="openRegisterDialog()">Register</button>
-     </div>
-     }
+  @if (currentUser()) {
+  <div>
+    <span>Howdy, {{ currentUser().name }}!</span>
+
+    <button class="ml-2" mat-flat-button color="primary" [matMenuTriggerFor]="menu" aria-label="User menu">
+      Menu
+    </button>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item routerLink="/orders">Orders</a>
+
+      <a mat-menu-item routerLink="/group-orders">Group orders</a>
+      
+      <a mat-menu-item routerLink="/me">Profile</a>
+
+      <button mat-menu-item color="warn" (click)="logout()">Logout</button>
+
+    </mat-menu>
+
+  </div>
+  } @else {
+  <div class="m-2">
+    <button mat-flat-button color="primary" class="mr-2" (click)="openLoginDialog()">Login</button>
+    <button mat-stroked-button color="primary" (click)="openRegisterDialog()">Register</button>
+  </div>
+  }
 
 </section>
 <mat-divider></mat-divider>

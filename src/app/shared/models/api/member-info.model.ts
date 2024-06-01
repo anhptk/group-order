@@ -2,6 +2,7 @@ export class MemberInfo {
     public id: number;
     public name: string;
     public email: string;
+    public balance: number;
 
     constructor(data: Partial<MemberInfo>) {
         Object.assign(this, data);

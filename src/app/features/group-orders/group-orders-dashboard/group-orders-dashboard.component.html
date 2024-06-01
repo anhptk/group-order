@@ -1,21 +1,24 @@
 <h1 class="text-align-center">Group orders</h1>
 
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-    <mat-tab label="Today">
+    <mat-tab label="All">
         @if (currentUser$ | async) {
+            <app-group-orders-table></app-group-orders-table>
 
         } @else {
-            <div class="m-4">Login to view content.</div>
+        <div class="m-4">Login to view content.</div>
         }
-    </mat-tab>
-
-    <mat-tab label="Passed days">
-        <ng-template matTabContent>
-        </ng-template>
     </mat-tab>
 
     <mat-tab label="Mine">
         <ng-template matTabContent>
+            @if (currentUser$ | async) {
+                <app-group-orders-table [queryParams]="{host_member: (currentUser$ | async)?.id}"></app-group-orders-table>
+
+            } @else {
+            <div class="m-4">Login to view content.</div>
+            }
         </ng-template>
     </mat-tab>
+
 </mat-tab-group>
