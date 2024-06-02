@@ -1,0 +1,21 @@
+$success: #43A047;
+$warn: #FDD835;
+$danger: #F4511E;
+
+.notification {
+    padding: 24px;
+    width: 200px;
+    height: auto;
+
+    &.success {
+        background-color: $success;
+    }
+
+    &.warn {
+        background-color: $warn;
+    }
+
+    &.danger {
+        background-color: $danger;
+    }
+}
