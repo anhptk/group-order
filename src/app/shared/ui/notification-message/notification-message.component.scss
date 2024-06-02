@@ -1,21 +1,23 @@
 $success: #43A047;
-$warn: #FDD835;
-$danger: #F4511E;
+$warn: #fbc02d;
+$danger: #d32f2f;
 
-.notification {
-    padding: 24px;
-    width: 200px;
-    height: auto;
-
+.mat-mdc-snack-bar-container {
     &.success {
-        background-color: $success;
+        .mdc-snackbar__surface {
+            background-color: $success;
+        }
     }
 
     &.warn {
-        background-color: $warn;
+        .mdc-snackbar__surface {
+            background-color: $warn;
+        }
     }
 
     &.danger {
-        background-color: $danger;
+        .mdc-snackbar__surface {
+            background-color: $danger;
+        }
     }
 }
