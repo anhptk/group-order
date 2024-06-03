@@ -20,7 +20,6 @@
             "outputPath": "dist/group-order",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "deployUrl": "/static/",
             "polyfills": [
               "zone.js"
             ],
@@ -111,6 +110,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
