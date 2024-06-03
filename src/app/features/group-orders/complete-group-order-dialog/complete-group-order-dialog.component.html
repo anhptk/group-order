@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Complete order</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="mainForm">
+      <mat-form-field class="w-100">
+        <mat-label>Orders</mat-label>
+        <mat-select formControlName="orders" multiple>
+          @for (order of data.orders; track order) {
+            <mat-option [value]="order.id">{{order.orderedBy.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-label>Actual amount</mat-label>
+        <input matInput formControlName="actualAmount" type="number">
+      </mat-form-field>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close class="mr-2">Close</button>
+  <app-submit-button [disabled]="!mainForm.valid" (action)="completeOrder()"
+                     [isSubmitting]="isSubmitting">Complete
+  </app-submit-button>
+</mat-dialog-actions>

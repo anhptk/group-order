@@ -5,15 +5,20 @@ import {MatTableModule} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { GroupOrderInfoService } from '../../../shared/services/api/group-order-info.service';
 import { GroupOrderInfoViewModel } from '../../../shared/models/view/group-order-info.view-model';
-import { OrderInfoService } from '../../../shared/services/api/order-info.service';
 import { QueryGroupOrderInfoParams } from '../../../shared/models/api/group-order-info.model';
 import { AppDataService } from "../../../shared/services/auth/app-data.service";
 import { OrderStatusEnum } from '../../../shared/enums/order-status.enum';
+import { MatDialog } from "@angular/material/dialog";
+import { DialogModule } from "@angular/cdk/dialog";
+import {
+  CompleteGroupOrderDialogComponent
+} from "../complete-group-order-dialog/complete-group-order-dialog.component";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-group-orders-table',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, DialogModule, DatePipe],
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({height: '0px', minHeight: '0'})),
@@ -37,7 +42,8 @@ export class GroupOrdersTableComponent {
 
   constructor(
     private _groupOrderService: GroupOrderInfoService,
-    private _appData: AppDataService
+    private _appData: AppDataService,
+    private _dialog: MatDialog
   ) {
     this._appData.currentUser$.subscribe(user => this.currentUserId = user.id);
   }
@@ -53,21 +59,10 @@ export class GroupOrdersTableComponent {
   }
 
   public complete(groupOrder: GroupOrderInfoViewModel): void {
-    this._groupOrderService.complete(
-      groupOrder.id,
-      {
-        orders: groupOrder.orders.map(order => order.id),
-        actual_amount: groupOrder.total
-      }).subscribe(() => {
-        this._loadRow(groupOrder);
+    const dialog = this._dialog.open(CompleteGroupOrderDialogComponent, {
+      data: groupOrder
     });
-  }
 
-  private _loadRow(row: GroupOrderInfoViewModel): void {
-    row.loading = true;
-
-    this._groupOrderService.getDetails(row.id).subscribe(data => {
-      row = GroupOrderInfoViewModel.createFromApiModel(data);
-    });
+    dialog.afterClosed().subscribe(() => this._loadData());
   }
 }

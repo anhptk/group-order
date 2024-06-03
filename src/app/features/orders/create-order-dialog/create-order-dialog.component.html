@@ -7,10 +7,10 @@
             <mat-label>Name</mat-label>
             <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
-        
+
         <mat-form-field class="w-100">
             <mat-label>Unit price</mat-label>
-            <input matInput type="number" placeholder="Unit price (in thousands VND)" formControlName="unitPrice">
+            <input matInput type="number" placeholder="Unit price" formControlName="unitPrice">
         </mat-form-field>
 
         <mat-form-field class="w-100">
@@ -33,7 +33,7 @@
 
     <mat-divider class="mb-2"></mat-divider>
     }
-    
+
     <button mat-flat-button color="primary" class="m-2" aria-label="Add row" (click)="addRowForm()">
         <mat-icon>add</mat-icon>
         Item
