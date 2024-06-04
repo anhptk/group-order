@@ -12,7 +12,7 @@ export class AppDataService {
   public readonly REFRESH_RATE = 1000 * 60 * 60;
   private _currentUser$ = new BehaviorSubject<MemberInfo | null>(null);
 
-  private _refreshInterval: NodeJS.Timeout;
+  private _refreshInterval: ReturnType<typeof setInterval>;
 
   constructor(
     private readonly _authService: AuthenticationService,
