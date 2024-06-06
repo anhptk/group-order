@@ -4,7 +4,7 @@ import { NotificationService } from './notification.service';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationMessageComponent } from '../../ui/notification-message/notification-message.component';
-import { NOTIFICATION_TYPE_CONSTANTS } from '../../ui/notification-message/models/notification-config.model';
+import { NOTIFICATION_TYPE_CONST } from '../../ui/notification-message/models/notification-config.model';
 
 describe('NotificationService', () => {
     let service: NotificationService;
@@ -40,7 +40,7 @@ describe('NotificationService', () => {
             jasmine.objectContaining({
                 data: {
                     message: mockMessage,
-                    type: NOTIFICATION_TYPE_CONSTANTS.SUCCESS
+                    type: NOTIFICATION_TYPE_CONST.SUCCESS
                 },
                 panelClass: 'success'
             })
@@ -56,7 +56,7 @@ describe('NotificationService', () => {
             jasmine.objectContaining({
                 data: {
                     message: mockMessage,
-                    type: NOTIFICATION_TYPE_CONSTANTS.WARNING
+                    type: NOTIFICATION_TYPE_CONST.WARNING
                 },
                 panelClass: 'warn'
             })
@@ -72,7 +72,7 @@ describe('NotificationService', () => {
             jasmine.objectContaining({
                 data: {
                     message: mockMessage,
-                    type: NOTIFICATION_TYPE_CONSTANTS.ERROR
+                    type: NOTIFICATION_TYPE_CONST.ERROR
                 },
                 panelClass: 'danger'
             })

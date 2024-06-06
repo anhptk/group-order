@@ -1,6 +1,6 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { NOTIFICATION_TYPE_CONSTANTS, NotificationConfig } from './models/notification-config.model';
+import { NotificationConfig } from './models/notification-config.model';
 
 @Component({
   selector: 'app-notification-message',
@@ -10,7 +10,6 @@ import { NOTIFICATION_TYPE_CONSTANTS, NotificationConfig } from './models/notifi
   encapsulation: ViewEncapsulation.None
 })
 export class NotificationMessageComponent {
-  public readonly NOTIFICATION_TYPE = NOTIFICATION_TYPE_CONSTANTS;
   constructor(
     @Inject(MAT_SNACK_BAR_DATA) public data: NotificationConfig
   ) {

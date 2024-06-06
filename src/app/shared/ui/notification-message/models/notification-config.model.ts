@@ -1,12 +1,12 @@
-export const NOTIFICATION_TYPE_CONSTANTS = {
+export const NOTIFICATION_TYPE_CONST = {
     SUCCESS: 'SUCCESS',
     WARNING: 'WARNING',
     ERROR: 'ERROR'
 } as const
 
-export type NOTIFICATION_TYPE = typeof NOTIFICATION_TYPE_CONSTANTS[keyof typeof NOTIFICATION_TYPE_CONSTANTS]
+export type NOTIFICATION_TYPE = typeof NOTIFICATION_TYPE_CONST[keyof typeof NOTIFICATION_TYPE_CONST]
 
 export class NotificationConfig {
     public message: string;
-    public type: NOTIFICATION_TYPE;
+    public notificationType: NOTIFICATION_TYPE;
 }
