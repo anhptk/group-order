@@ -1,0 +1,23 @@
+$success: #43A047;
+$warn: #fbc02d;
+$danger: #d32f2f;
+
+.mat-mdc-snack-bar-container {
+    &.success {
+        .mdc-snackbar__surface {
+            background-color: $success;
+        }
+    }
+
+    &.warn {
+        .mdc-snackbar__surface {
+            background-color: $warn;
+        }
+    }
+
+    &.danger {
+        .mdc-snackbar__surface {
+            background-color: $danger;
+        }
+    }
+}
