@@ -3,9 +3,13 @@
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Today">
         @if (currentUser$ | async) {
-            <div class="p-4">
-                <button mat-flat-button color="primary" class="mr-2 mb-2" (click)="openCreateOrderDialog()">Create order</button>
-                <button mat-flat-button color="accent" class="mb-2" [disabled]="!selectedItems.size" (click)="createGroupOrder()">Create group order</button>
+            <div class="pt-4">
+                <button mat-flat-button color="primary" disabled class="mb-2 mr-2"><mat-icon>library_books</mat-icon>Menu</button>
+                <button mat-flat-button color="primary" class="mb-2" (click)="openCreateOrderDialog()"><mat-icon>add</mat-icon>Order</button>
+            </div>
+
+            <div class="p-2 text-align-right">
+                <button mat-flat-button color="accent" [disabled]="!selectedItems.size" (click)="createGroupOrder()"><mat-icon>add</mat-icon>Group order</button>
             </div>
 
             <app-orders-table [hideDate]="true" [query]="todayOrderQuery" (selectedChange)="selectItem($event)" (copyOrder)="copyOrder($event)"></app-orders-table>

@@ -3,16 +3,16 @@
   <div>
     <span>Howdy, {{ currentUser().name }}!</span>
 
-    <button class="ml-2" mat-flat-button color="primary" [matMenuTriggerFor]="menu" aria-label="User menu">
-      Menu
+    <button class="ml-2" mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
+      <mat-icon>manage_accounts</mat-icon>
+      Manage
     </button>
+
     <mat-menu #menu="matMenu">
       <a mat-menu-item routerLink="/orders">Orders</a>
 
       <a mat-menu-item routerLink="/group-orders">Group orders</a>
       
-      <a mat-menu-item routerLink="/me">Profile</a>
-
       <button mat-menu-item color="warn" (click)="logout()">Logout</button>
 
     </mat-menu>

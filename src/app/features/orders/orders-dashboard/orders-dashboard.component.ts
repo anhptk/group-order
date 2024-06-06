@@ -14,11 +14,12 @@ import { ConfirmationDialogComponent } from '../../../shared/ui/confirmation-dia
 import { GroupOrderInfoService } from '../../../shared/services/api/group-order-info.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-orders-dashboard',
   standalone: true,
-  imports: [MatTabsModule, MatCardModule, MatButtonModule, OrdersTableComponent, MatDialogModule, CommonModule],
+  imports: [MatTabsModule, MatCardModule, MatButtonModule, OrdersTableComponent, MatDialogModule, CommonModule, MatIcon],
   templateUrl: './orders-dashboard.component.html',
   styleUrl: './orders-dashboard.component.scss'
 })
@@ -29,6 +30,8 @@ export class OrdersDashboardComponent {
   public passedOrderQuery: QueryOrderInfoParams;
 
   public selectedItems: Set<number> = new Set();
+
+  public todayMenuUrl = '/';
 
   @ViewChild(OrdersTableComponent, { static: false }) public orderTable: OrdersTableComponent;
 
@@ -50,7 +53,7 @@ export class OrdersDashboardComponent {
   }
 
   public openCreateOrderDialog(): void {
-    const dialog = this._dialog.open(CreateOrderDialogComponent);
+    const dialog = this._dialog.open(CreateOrderDialogComponent, {minWidth: '500px'});
 
     dialog.afterClosed().subscribe(result => {
       if (result) {
