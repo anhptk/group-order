@@ -7,11 +7,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MemberInfo } from '../../../models/api/member-info.model';
 import { AppDataService } from '../../../services/auth/app-data.service';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule],
+  imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule, MatIconModule, MatMenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

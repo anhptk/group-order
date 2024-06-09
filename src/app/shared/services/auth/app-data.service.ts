@@ -9,10 +9,10 @@ import { SecurityService } from '../api/sercurity.service';
 })
 export class AppDataService {
 
-  public readonly REFRESH_RATE = 1000 * 60 * 60;
+  public readonly REFRESH_RATE = 1000 * 60 * 30;
   private _currentUser$ = new BehaviorSubject<MemberInfo | null>(null);
 
-  private _refreshInterval: NodeJS.Timeout;
+  private _refreshInterval: ReturnType<typeof setInterval>;
 
   constructor(
     private readonly _authService: AuthenticationService,

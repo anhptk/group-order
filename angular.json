@@ -20,10 +20,10 @@
             "outputPath": "dist/group-order",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "deployUrl": "/static/",
             "polyfills": [
               "zone.js"
             ],
+            "deployUrl": "/static/",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -111,6 +111,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

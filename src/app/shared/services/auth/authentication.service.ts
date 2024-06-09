@@ -10,7 +10,7 @@ export class AuthenticationService {
   public readonly accessToken = new BehaviorSubject<string | null>(null);
 
   public get currentRefreshToken(): string {
-    return localStorage.getItem('refreshToken') || '';
+    return localStorage?.getItem('refreshToken') || '';
   }
 
   public setTokens(response: LoginResponse): void {

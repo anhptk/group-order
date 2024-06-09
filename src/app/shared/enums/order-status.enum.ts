@@ -1,5 +1,5 @@
 export enum OrderStatusEnum {
-    Draft = 'Draft',
-    InProgress = 'InProgress',
-    Completed = 'Completed'
+    InProgress = 'in_progress',
+    Completed = 'completed',
+    Cancelled = 'cancelled'
 }
