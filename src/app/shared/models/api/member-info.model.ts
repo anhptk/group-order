@@ -14,3 +14,8 @@ export interface CreateMemberPayload {
     email: string;
     password: string;
 }
+
+export interface UpdateMemberPayload {
+    name?: string;
+    password?: string;
+}

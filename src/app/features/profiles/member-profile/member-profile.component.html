@@ -1,0 +1,31 @@
+<section class="text-align-center">
+  <h1>Profile</h1>
+  <p>Balance: {{member?.balance ?? 0}}</p>
+</section>
+
+<mat-divider></mat-divider>
+
+<section class="p-4 w-50">
+  <h3>Update profile</h3>
+  <form [formGroup]="mainForm">
+    <mat-form-field class="w-100 mt-2">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mt-2">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mt-2">
+      <mat-label>New password</mat-label>
+      <input matInput type="password" placeholder="Enter new password or leave empty" formControlName="password">
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" class="mt-2" aria-label="Add row" [disabled]="!mainForm.dirty || !mainForm.valid" (click)="update()">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </form>
+</section>

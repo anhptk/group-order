@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { OrdersDashboardComponent } from './features/orders/orders-dashboard/orders-dashboard.component';
-import { GroupOrdersDashboardComponent } from './features/group-orders/group-orders-dashboard/group-orders-dashboard.component';
 
 export const routes: Routes = [
     {
@@ -9,7 +8,11 @@ export const routes: Routes = [
     },
     {
         path: 'group-orders',
-        component: GroupOrdersDashboardComponent
+        loadComponent: () => import('./features/group-orders/group-orders-dashboard/group-orders-dashboard.component').then(m => m.GroupOrdersDashboardComponent),
+    },
+    {
+        path: 'my-profile',
+        loadComponent: () => import('./features/profiles/member-profile/member-profile.component').then(m => m.MemberProfileComponent),
     },
     {
         path: '',
