@@ -1,5 +1,4 @@
 import { OrderStatusEnum } from "../../enums/order-status.enum";
-import { MemberInfo } from "../api/member-info.model";
 import { OrderInfo, OrderItem } from "../api/order-info.model";
 
 export class OrderInfoViewModel {
@@ -8,7 +7,7 @@ export class OrderInfoViewModel {
     isPaid: boolean;
     
     items: OrderItem[];
-    orderedBy: MemberInfo;
+    orderedBy: string;
     groupOrderId: number;
     status: OrderStatusEnum;
 
@@ -22,7 +21,7 @@ export class OrderInfoViewModel {
             createdAt: new Date(data.created_at),
             isPaid: data.is_paid,
             items: data.items,
-            orderedBy: new MemberInfo(data.ordered_by),
+            orderedBy: data.ordered_by.name,
             groupOrderId: data.group_order,
             status: data.status
         });

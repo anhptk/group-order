@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, signal } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import { Component, EventEmitter, Input, Output, SimpleChanges, signal, ViewChild, OnInit, OnChanges } from '@angular/core';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { OrderInfo, QueryOrderInfoParams } from '../../../shared/models/api/order-info.model';
 import { OrderInfoService } from '../../../shared/services/api/order-info.service';
@@ -10,27 +10,38 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { PAGINATOR_SIZE_OPTIONS, DEFAULT_PAGINATOR_PAGE_SIZE } from '../../../shared/constants/paginator.constant';
 
 @Component({
   selector: 'app-orders-table',
   standalone: true,
-  imports: [MatTableModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule, CommonModule, MatFormField, MatLabel],
+  imports: [MatTableModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule, CommonModule, MatFormFieldModule, MatInputModule , MatSortModule, MatPaginatorModule],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
 })
-export class OrdersTableComponent implements OnChanges {
+export class OrdersTableComponent implements OnInit, OnChanges {
   @Input() query: QueryOrderInfoParams;
   @Input() hideDate = false;
+  @Input() hideFilter = false;
   @Output() selectedChange: EventEmitter<Set<number>> = new EventEmitter();
   @Output() copyOrder: EventEmitter<OrderInfoViewModel> = new EventEmitter();
 
+  public readonly PAGINATOR_SIZE_OPTIONS = PAGINATOR_SIZE_OPTIONS;
+  public readonly DEFAULT_PAGINATOR_PAGE_SIZE = DEFAULT_PAGINATOR_PAGE_SIZE
+
   public displayedColumns: string[] = ['memberName', 'items', 'subtotal', 'status', 'actions'];
 
-  public data: OrderInfoViewModel[] = [];
+  public dataSource = new MatTableDataSource<OrderInfoViewModel>([]);
 
   public isLoading = signal(true);
   public selectedRows: Set<number> = new Set();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private readonly _orderService: OrderInfoService
@@ -53,7 +64,10 @@ export class OrdersTableComponent implements OnChanges {
         finalize(() => this.isLoading.set(false)),
         map((response: OrderInfo[]) => response.map(order => OrderInfoViewModel.createFromApiModel(order)))
       )
-      .subscribe(data => this.data = data);
+      .subscribe(data => {
+        this.dataSource.data = data;
+        this._setupTableSorts();
+      });
   }
 
   private _setupDisplayedColumns(): void {
@@ -64,6 +78,14 @@ export class OrdersTableComponent implements OnChanges {
     }
   }
 
+  private _setupTableSorts() {
+    // wait for child components rendered
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+  }
+
   public refresh(): void {
     this._fetchData();
   }
@@ -71,7 +93,7 @@ export class OrdersTableComponent implements OnChanges {
   public deleteRow(id: number): void {
     this._orderService.delete(id)
       .subscribe(() => {
-        this.data = this.data.filter(order => order.id !== id);
+        this.dataSource.data = this.dataSource.data.filter(order => order.id !== id);
         this.selectRow(id, { checked: false } as MatCheckboxChange);
       });
   }
@@ -91,16 +113,19 @@ export class OrdersTableComponent implements OnChanges {
   }
 
   public calculatePrice(): number {
-    return this.data.reduce((total, order) => total + order.subtotal, 0);
+    return this.dataSource.filteredData.reduce((total, order) => total + order.subtotal, 0);
   }
 
   public calculateQuantity(): number {
-    return this.data.reduce((total, order) => total + order.totalCount, 0);
+    return this.dataSource.filteredData.reduce((total, order) => total + order.totalCount, 0);
   }
 
-  applyFilter(event: Event) {
-    console.log(typeof event)
+  public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

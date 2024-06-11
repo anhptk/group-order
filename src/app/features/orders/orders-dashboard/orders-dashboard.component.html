@@ -12,7 +12,7 @@
                 <button mat-flat-button color="accent" [disabled]="!selectedItems.size" (click)="createGroupOrder()"><mat-icon>add</mat-icon>Group order</button>
             </div>
 
-            <app-orders-table [hideDate]="true" [query]="todayOrderQuery" (selectedChange)="selectItem($event)" (copyOrder)="copyOrder($event)"></app-orders-table>
+            <app-orders-table [hideFilter]="true" [hideDate]="true" [query]="todayOrderQuery" (selectedChange)="selectItem($event)" (copyOrder)="copyOrder($event)"></app-orders-table>
         } @else {
             <div class="m-4">Login to view content.</div>
         }

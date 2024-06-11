@@ -6,7 +6,7 @@
         <mat-label>Orders</mat-label>
         <mat-select formControlName="orders" multiple>
           @for (order of data.orders; track order) {
-            <mat-option [value]="order.id">{{order.orderedBy.name}}</mat-option>
+            <mat-option [value]="order.id">{{order.orderedBy}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
