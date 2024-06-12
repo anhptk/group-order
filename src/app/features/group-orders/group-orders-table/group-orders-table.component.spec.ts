@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GroupOrdersTableComponent } from './group-orders-table.component';
 import { RequestHelperService } from '../../../shared/services/utils/request-helper.service';
 import { MockRequestHelperService } from '../../../shared/services/utils/tests/mock-request-helper-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('GroupOrdersTableComponent', () => {
   let component: GroupOrdersTableComponent;
@@ -10,7 +11,10 @@ describe('GroupOrdersTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GroupOrdersTableComponent],
+      imports: [
+        GroupOrdersTableComponent,
+        BrowserAnimationsModule
+      ],
       providers: [
         { provide: RequestHelperService, useValue: new MockRequestHelperService() }
       ]

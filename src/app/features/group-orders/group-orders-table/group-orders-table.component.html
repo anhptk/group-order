@@ -45,25 +45,7 @@
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
       <div class="expanding-row-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-
-        <div>
-          @if (
-          element.orders.length > 0
-          ) {
-          <table>
-            <tr>
-              <th>Member</th>
-              <th>Total</th>
-            </tr>
-            @for (item of element.orders; track $index) {
-              <tr>
-                <td>{{item.orderedBy.name}}</td>
-                <td>{{item.subtotal}}</td>
-              </tr>
-            }
-          </table>
-          }
-        </div>
+        <ng-container *ngTemplateOutlet="orderDetails; context: { $implicit: element.orders }"></ng-container>
       </div>
     </td>
   </ng-container>
@@ -75,3 +57,24 @@
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
 </table>
+<mat-paginator showFirstLastButtons [pageSize]="DEFAULT_PAGINATOR_PAGE_SIZE" [pageSizeOptions]="PAGINATOR_SIZE_OPTIONS" aria-label="Select page"></mat-paginator>
+
+<!--Group order details template-->
+<ng-template #orderDetails let-orders>
+  <div>
+    @if (orders.length > 0) {
+      <table>
+        <tr>
+          <th>Member</th>
+          <th>Total</th>
+        </tr>
+        @for (item of orders; track item) {
+          <tr>
+            <td>{{item.orderedBy}}</td>
+            <td>{{item.subtotal}}</td>
+          </tr>
+        }
+      </table>
+    }
+  </div>
+</ng-template>

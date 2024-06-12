@@ -53,6 +53,7 @@ export class MemberProfileComponent {
 
     this._securityService.updateCurrentUser(payload).subscribe(() => {
       this._appDataService.initializeUser();
+      this.mainForm.markAsPristine();
     })
   }
 

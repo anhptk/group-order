@@ -13,12 +13,15 @@ import { DialogModule } from "@angular/cdk/dialog";
 import {
   CompleteGroupOrderDialogComponent
 } from "../complete-group-order-dialog/complete-group-order-dialog.component";
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
+import { BaseTableComponent } from '../../../shared/ui/base-table/base-table.component';
+import { Observable, map } from 'rxjs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-group-orders-table',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, DialogModule, DatePipe],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, DialogModule, DatePipe, MatPaginatorModule, CommonModule],
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({height: '0px', minHeight: '0'})),
@@ -29,33 +32,30 @@ import { DatePipe } from '@angular/common';
   templateUrl: './group-orders-table.component.html',
   styleUrl: './group-orders-table.component.scss'
 })
-export class GroupOrdersTableComponent {
+export class GroupOrdersTableComponent extends BaseTableComponent<GroupOrderInfoViewModel> {
   @Input() queryParams: QueryGroupOrderInfoParams;
-  readonly OrderStatusEnum = OrderStatusEnum;
+  public readonly OrderStatusEnum = OrderStatusEnum;
 
-  dataSource: GroupOrderInfoViewModel[] = [];
   columnsToDisplay = ['time', 'host', 'amount', 'status', 'actions'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: GroupOrderInfoViewModel | null;
 
   public currentUserId: number;
+  protected _queryRequest: () => Observable<GroupOrderInfoViewModel[]>;
 
   constructor(
     private _groupOrderService: GroupOrderInfoService,
     private _appData: AppDataService,
     private _dialog: MatDialog
   ) {
+    super();
     this._appData.currentUser$.subscribe(user => this.currentUserId = user.id);
+    this._queryRequest = this._constructQueryRequest.bind(this);
   }
 
-  ngOnInit() {
-    this._loadData();
-  }
-
-  private _loadData() {
-    this._groupOrderService.query(this.queryParams ?? {}).subscribe(data => {
-      this.dataSource = data.map(groupOrder => GroupOrderInfoViewModel.createFromApiModel(groupOrder));
-    });
+  private _constructQueryRequest(): Observable<GroupOrderInfoViewModel[]> {
+    return this._groupOrderService.query(this.queryParams ?? {}).
+    pipe(map(data => data.map(groupOrder => GroupOrderInfoViewModel.createFromApiModel(groupOrder))));
   }
 
   public complete(groupOrder: GroupOrderInfoViewModel): void {
@@ -63,6 +63,6 @@ export class GroupOrdersTableComponent {
       data: groupOrder
     });
 
-    dialog.afterClosed().subscribe(() => this._loadData());
+    dialog.afterClosed().subscribe(() => this.refresh());
   }
 }
