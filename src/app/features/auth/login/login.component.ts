@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
@@ -7,10 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { AuthenticationService } from '../../../shared/services/auth/authentication.service';
 import { MemberInfo } from '../../../shared/models/api/member-info.model';
 import { SecurityService } from '../../../shared/services/api/sercurity.service';
-import { finalize, map, switchMap } from 'rxjs';
+import { finalize, switchMap } from 'rxjs';
 import { LoginResponse } from '../../../shared/models/api/login.model';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatIconModule} from '@angular/material/icon';
 import { SubmitButtonComponent } from '../../../shared/ui/submit-button/submit-button.component';
 
 @Component({

@@ -45,8 +45,8 @@ export class CompleteGroupOrderDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: GroupOrderInfoViewModel,
-    private _groupOrderService: GroupOrderInfoService,
-    private _dialogRef: MatDialogRef<CompleteGroupOrderDialogComponent>
+    private readonly _groupOrderService: GroupOrderInfoService,
+    private readonly _dialogRef: MatDialogRef<CompleteGroupOrderDialogComponent>
   ) {
     this._constructForm();
   }

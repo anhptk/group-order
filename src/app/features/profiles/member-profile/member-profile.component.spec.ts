@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MemberProfileComponent } from './member-profile.component';
+import { RequestHelperService } from '../../../shared/services/utils/request-helper.service';
+import { MockRequestHelperService } from '../../../shared/services/utils/tests/mock-request-helper-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MemberProfileComponent', () => {
   let component: MemberProfileComponent;
@@ -8,7 +11,13 @@ describe('MemberProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MemberProfileComponent]
+      imports: [
+        MemberProfileComponent,
+        BrowserAnimationsModule
+      ],
+      providers: [
+        { provide: RequestHelperService, useValue: new MockRequestHelperService() }
+      ]
     })
     .compileComponents();
     

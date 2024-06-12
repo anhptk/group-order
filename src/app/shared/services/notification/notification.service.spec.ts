@@ -40,9 +40,10 @@ describe('NotificationService', () => {
             jasmine.objectContaining({
                 data: {
                     message: mockMessage,
-                    type: NOTIFICATION_TYPE_CONST.SUCCESS
+                    notificationType: NOTIFICATION_TYPE_CONST.SUCCESS
                 },
-                panelClass: 'success'
+                panelClass: 'success',
+                ...service.DEFAULT_CONFIG
             })
         );
     });
@@ -56,9 +57,10 @@ describe('NotificationService', () => {
             jasmine.objectContaining({
                 data: {
                     message: mockMessage,
-                    type: NOTIFICATION_TYPE_CONST.WARNING
+                    notificationType: NOTIFICATION_TYPE_CONST.WARNING
                 },
-                panelClass: 'warn'
+                panelClass: 'warn',
+                ...service.DEFAULT_CONFIG
             })
         );
     });
@@ -72,9 +74,10 @@ describe('NotificationService', () => {
             jasmine.objectContaining({
                 data: {
                     message: mockMessage,
-                    type: NOTIFICATION_TYPE_CONST.ERROR
+                    notificationType: NOTIFICATION_TYPE_CONST.ERROR
                 },
-                panelClass: 'danger'
+                panelClass: 'danger',
+                ...service.DEFAULT_CONFIG
             })
         );
     });
