@@ -20,7 +20,7 @@ export const apiRequestInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     tap((event) => {
       if (req.method !== 'GET' && req.method !== 'OPTIONS' && event.type === HttpEventType.Response) {
-        notificationService.pushSuccess('Request completed succesfully');
+        notificationService.pushSuccess('Request completed successfully');
       }
     }),
     catchError(err => {
