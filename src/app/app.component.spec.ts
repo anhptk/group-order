@@ -4,6 +4,7 @@ import { RequestHelperService } from './shared/services/utils/request-helper.ser
 import { MockRequestHelperService } from './shared/services/utils/tests/mock-request-helper-service';
 import { RouterOutlet } from '@angular/router';
 import { LayoutComponent } from './shared/ui/layout/layout.component';
+import { AuthService } from '@auth0/auth0-angular';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -14,7 +15,8 @@ describe('AppComponent', () => {
         LayoutComponent
       ],
       providers: [
-        { provide: RequestHelperService, useValue: new MockRequestHelperService()}
+        { provide: RequestHelperService, useValue: new MockRequestHelperService()},
+        { provide: AuthService, useValue: {}}
       ]
     }).compileComponents();
   });

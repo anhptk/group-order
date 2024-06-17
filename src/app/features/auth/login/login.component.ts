@@ -48,7 +48,6 @@ export class LoginComponent {
       this._securityService.getLoginToken(payload)
         .pipe(
           switchMap((response: LoginResponse) => {
-            this._authService.setTokens(response);
             return this._securityService.getCurrentUser()
         }),
         finalize(() => this.isSubmitting = false)
