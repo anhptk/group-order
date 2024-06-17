@@ -46,9 +46,9 @@ export class RequestHelperService {
   private _constructRequestHeaders(): HttpHeaders {
     const headers = new HttpHeaders();
 
-    if (this._authService.accessToken.value) {
+    if (this._authService.accessToken$.value) {
       return new HttpHeaders({
-        'Authorization': `Bearer ${this._authService.accessToken.getValue()}`
+        'Authorization': `Bearer ${this._authService.accessToken$.value}`
       });
     }
 
