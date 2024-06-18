@@ -39,7 +39,7 @@ export class HeaderComponent {
   }
 
   public logout(): void {
-    this._authService.logout()
+    this._authService.logout({logoutParams: {returnTo: window.location.origin}})
       .subscribe(() => {
         this._authenticationService.setAccessToken(null);
         this._appDataService.logout();
