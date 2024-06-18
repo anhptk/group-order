@@ -1,14 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { LoginComponent } from '../../../../features/auth/login/login.component';
-import { RegisterComponent } from '../../../../features/auth/register/register.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MemberInfo } from '../../../models/api/member-info.model';
 import { AppDataService } from '../../../services/auth/app-data.service';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { AuthService } from '@auth0/auth0-angular';
+import { AuthenticationService } from '../../../services/auth/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -21,8 +21,9 @@ export class HeaderComponent {
   public currentUser = signal<MemberInfo>(null);
 
   constructor(
-    private readonly _dialog: MatDialog,
-    private readonly _appDataService: AppDataService
+    private readonly _appDataService: AppDataService,
+    private readonly _authService: AuthService,
+    private readonly _authenticationService: AuthenticationService
   ) {
     this._subscribeToCurrentUser();
   }
@@ -33,23 +34,15 @@ export class HeaderComponent {
     });
   }
 
-  public openLoginDialog() {
-    const dialogRef = this._dialog.open(LoginComponent);
-
-    dialogRef.afterClosed().subscribe((result:MemberInfo) => {
-      if (result) this._appDataService.fetchUser(result);
-    });
-  }
-
-  public openRegisterDialog() {
-    const dialogRef = this._dialog.open(RegisterComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) this.openLoginDialog();
-    });
+  public login(): void {
+    this._authService.loginWithRedirect();
   }
 
   public logout(): void {
-    this._appDataService.logout();
+    this._authService.logout({logoutParams: {returnTo: window.location.origin}})
+      .subscribe(() => {
+        this._authenticationService.setAccessToken(null);
+        this._appDataService.logout();
+      });
   }
 }

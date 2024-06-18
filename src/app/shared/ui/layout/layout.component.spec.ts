@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LayoutComponent } from './layout.component';
 import { RequestHelperService } from '../../services/utils/request-helper.service';
 import { MockRequestHelperService } from '../../services/utils/tests/mock-request-helper-service';
+import { AuthService } from '@auth0/auth0-angular';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -12,7 +13,8 @@ describe('LayoutComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LayoutComponent],
       providers: [
-        { provide: RequestHelperService, useValue: new MockRequestHelperService() }
+        { provide: RequestHelperService, useValue: new MockRequestHelperService() },
+        { provide: AuthService, useValue: {} }
       ]
     })
     .compileComponents();

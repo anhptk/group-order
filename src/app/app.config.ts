@@ -6,6 +6,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { apiRequestInterceptor } from './shared/interceptors/api-request.interceptor';
+import { provideAuth0, authHttpInterceptorFn } from '@auth0/auth0-angular';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,8 +17,23 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(
       withFetch(),
-      withInterceptors([apiRequestInterceptor])
+      withInterceptors([apiRequestInterceptor, authHttpInterceptorFn])
     ),
+    provideAuth0({
+      domain: environment.authDomain,
+      clientId: environment.authClientId,
+      authorizationParams: {
+        audience: environment.authAudience,
+        redirect_uri: environment.authRedirectUri
+      },
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: `${environment.apiUrl}/*`
+          }
+        ]
+      }
+    }),
     { provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: { dateFormat: 'dd/MM/yyyy'} }
   ]
 };
