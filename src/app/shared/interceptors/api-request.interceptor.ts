@@ -5,7 +5,6 @@ import { catchError, tap } from 'rxjs';
 
 const BYPASS_URLS = [
   'token',
-  'members/me',
 ];
 
 export const apiRequestInterceptor: HttpInterceptorFn = (req, next) => {

@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '@auth0/auth0-angular';
-import { switchMap } from 'rxjs';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
 
 @Component({
@@ -36,12 +35,7 @@ export class HeaderComponent {
   }
 
   public login(): void {
-    this._authService.loginWithPopup()
-      .pipe(switchMap(() => this._authService.getAccessTokenSilently()))
-      .subscribe(accessToken => {
-        this._authenticationService.setAccessToken(accessToken);
-        this._appDataService.initializeUser();
-      });
+    this._authService.loginWithRedirect();
   }
 
   public logout(): void {
