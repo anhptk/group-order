@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { AuthenticationService } from '../auth/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,48 +9,30 @@ import { AuthenticationService } from '../auth/authentication.service';
 export class RequestHelperService {
 
   constructor(
-    private readonly _httpClient: HttpClient,
-    private readonly _authService: AuthenticationService
+    private readonly _httpClient: HttpClient
   ) { }
 
   public get(url: string, queryOptions: any = {}): Observable<any> {
-    const options = {
-      ...queryOptions,
-      headers: this._constructRequestHeaders()
-    }
-
-    return this._httpClient.get(this._decorateUrl(url), options);
+    return this._httpClient.get(this._decorateUrl(url), queryOptions);
   }
 
   public post(url: string, body: any): Observable<any> {
-    return this._httpClient.post(this._decorateUrl(url), body, {headers: this._constructRequestHeaders()});
+    return this._httpClient.post(this._decorateUrl(url), body);
   }
 
   public patch(url: string, body: any): Observable<any> {
-    return this._httpClient.patch(this._decorateUrl(url), body, {headers: this._constructRequestHeaders()});
+    return this._httpClient.patch(this._decorateUrl(url), body);
   }
 
   public put(url: string, body: any): Observable<any> {
-    return this._httpClient.put(this._decorateUrl(url), body, {headers: this._constructRequestHeaders()});
+    return this._httpClient.put(this._decorateUrl(url), body);
   }
 
   public delete(url: string): Observable<any> {
-    return this._httpClient.delete(this._decorateUrl(url), {headers: this._constructRequestHeaders()});
+    return this._httpClient.delete(this._decorateUrl(url));
   }
 
   private _decorateUrl(url: string): string {
     return `${environment.apiUrl}${url}`;
-  }
-
-  private _constructRequestHeaders(): HttpHeaders {
-    const headers = new HttpHeaders();
-
-    if (this._authService.accessToken$.value) {
-      return new HttpHeaders({
-        'Authorization': `Bearer ${this._authService.accessToken$.value}`
-      });
-    }
-
-    return headers;
   }
 }

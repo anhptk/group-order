@@ -1,0 +1,14 @@
+@if (memberInfo()) {
+  <div class="member-profile-block" ngClass="align-{{align}}">
+    <div class="mr-2">
+      Howdy, {{ memberInfo().name }}!
+    </div>
+
+    <div class="member-profile-img" [matMenuTriggerFor]="menu" [style.background-image]="memberProfileUrl()">
+    </div>
+
+    <mat-menu #menu="matMenu">
+      <ng-content></ng-content>
+    </mat-menu>
+  </div>
+}

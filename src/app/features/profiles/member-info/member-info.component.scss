@@ -1,0 +1,23 @@
+.member-profile-block {
+  display: flex;
+  align-items: center;
+
+  &.align-left {
+    justify-content: start;
+  }
+
+  &.align-center {
+      justify-content: center;
+  }
+
+  &.align-right {
+      justify-content: end;
+  }
+}
+
+.member-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+}

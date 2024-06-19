@@ -8,12 +8,12 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '@auth0/auth0-angular';
-import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { MemberInfoComponent } from '../../../../features/profiles/member-info/member-info.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule, MatIconModule, MatMenuModule],
+  imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule, MatIconModule, MatMenuModule, MemberInfoComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -22,8 +22,7 @@ export class HeaderComponent {
 
   constructor(
     private readonly _appDataService: AppDataService,
-    private readonly _authService: AuthService,
-    private readonly _authenticationService: AuthenticationService
+    private readonly _authService: AuthService
   ) {
     this._subscribeToCurrentUser();
   }
@@ -41,7 +40,6 @@ export class HeaderComponent {
   public logout(): void {
     this._authService.logout({logoutParams: {returnTo: window.location.origin}})
       .subscribe(() => {
-        this._authenticationService.setAccessToken(null);
         this._appDataService.logout();
       });
   }

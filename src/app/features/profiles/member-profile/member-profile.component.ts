@@ -33,7 +33,8 @@ export class MemberProfileComponent {
       this.member = user;
       this.mainForm.patchValue({
         name: this.member?.name,
-        email: this.member?.email
+        email: this.member?.email,
+        picture: this.member?.picture
       });
 
       this.mainForm.controls.email.disable();
@@ -44,7 +45,7 @@ export class MemberProfileComponent {
     return new FormGroup({
       name: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null)
+      picture: new FormControl(null)
     });
   }
 
@@ -64,8 +65,8 @@ export class MemberProfileComponent {
       payload.name = this.mainForm.controls.name.value;
     }
 
-    if (this.mainForm.controls.password.value) {
-      payload.password = this.mainForm.controls.password.value;
+    if (this.mainForm.controls.picture.dirty) {
+      payload.picture = this.mainForm.controls.picture.value;
     }
 
     return payload;
