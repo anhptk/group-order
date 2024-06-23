@@ -1,0 +1,13 @@
+@if (!isLoading()) {
+  @if (transactions?.length > 0) {
+    <ul>
+      @for (transaction of transactions; track transaction) {
+        <li>On {{transaction.created_at | date}}, amount of {{transaction.amount}} has been transferred from
+          {{transaction.from_member.name}} to {{transaction.to_member.name}}.
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="text-center mt-4">No transactions found.</div>
+  }
+}

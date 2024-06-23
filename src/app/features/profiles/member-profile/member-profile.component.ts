@@ -9,11 +9,12 @@ import { MatIcon } from '@angular/material/icon';
 import { MemberProfileFormViewModel } from '../../../shared/models/forms/member-profile-form.view-model';
 import { SecurityService } from '../../../shared/services/api/sercurity.service';
 import { AppDataService } from '../../../shared/services/auth/app-data.service';
+import { TransactionsComponent } from '../../transactions/transactions.component';
 
 @Component({
   selector: 'app-member-profile',
   standalone: true,
-  imports: [MatDividerModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButton, MatIcon],
+  imports: [MatDividerModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButton, MatIcon, TransactionsComponent],
   templateUrl: './member-profile.component.html',
   styleUrl: './member-profile.component.scss'
 })
@@ -33,18 +34,14 @@ export class MemberProfileComponent {
       this.member = user;
       this.mainForm.patchValue({
         name: this.member?.name,
-        email: this.member?.email,
         picture: this.member?.picture
       });
-
-      this.mainForm.controls.email.disable();
     });
   }
 
   private _constructForm(): FormGroup<MemberProfileFormViewModel> {
     return new FormGroup({
       name: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
       picture: new FormControl(null)
     });
   }
