@@ -2,8 +2,8 @@
   @if (transactions?.length > 0) {
     <ul>
       @for (transaction of transactions; track transaction) {
-        <li>On {{transaction.created_at | date}}, amount of {{transaction.amount}} has been transferred from
-          {{transaction.from_member.name}} to {{transaction.to_member.name}}.
+        <li>On {{transaction.createdAt | date}}, amount of {{transaction.amount}} has been transferred from
+          {{transaction.fromMember.name}} to {{transaction.toMember.name}}.
         </li>
       }
     </ul>

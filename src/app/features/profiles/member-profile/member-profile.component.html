@@ -2,10 +2,10 @@
   <h1>Profile</h1>
 
   @if (member) {
-    <p>{{member.name}}</p>
-    <p>{{ member.email}} </p>
+    <p>{{ member.name }}</p>
+    <p>{{ member.email }} </p>
     <img [src]="member.picture" alt="Profile image" width="100" height="100">
-    <p>Balance: {{member.balance}}</p>
+    <p>Balance: {{ member.balance }}</p>
   }
 </section>
 
@@ -33,5 +33,8 @@
 
 <section class="p-4 w-50">
   <h3>Transaction history</h3>
-  <app-transactions></app-transactions>
+
+  @if (member) {
+    <app-transactions></app-transactions>
+  }
 </section>

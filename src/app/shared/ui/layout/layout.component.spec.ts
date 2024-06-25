@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout.component';
 import { RequestHelperService } from '../../services/utils/request-helper.service';
 import { MockRequestHelperService } from '../../services/utils/tests/mock-request-helper-service';
 import { AuthService } from '@auth0/auth0-angular';
+import { ActivatedRoute } from '@angular/router';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -14,7 +15,8 @@ describe('LayoutComponent', () => {
       imports: [LayoutComponent],
       providers: [
         { provide: RequestHelperService, useValue: new MockRequestHelperService() },
-        { provide: AuthService, useValue: {} }
+        { provide: AuthService, useValue: {} },
+        { provide: ActivatedRoute, useValue: {} }
       ]
     })
     .compileComponents();

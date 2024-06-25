@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RequestHelperService } from './shared/services/utils/request-helper.service';
 import { MockRequestHelperService } from './shared/services/utils/tests/mock-request-helper-service';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { LayoutComponent } from './shared/ui/layout/layout.component';
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -16,7 +16,8 @@ describe('AppComponent', () => {
       ],
       providers: [
         { provide: RequestHelperService, useValue: new MockRequestHelperService()},
-        { provide: AuthService, useValue: {}}
+        { provide: AuthService, useValue: {} },
+        { provide: ActivatedRoute, useValue: {} }
       ]
     }).compileComponents();
   });

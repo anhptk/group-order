@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { TransactionService } from '../../shared/services/api/transaction.service';
 import { Transaction } from '../../shared/models/api/transaction.model';
-import { finalize } from 'rxjs';
+import { finalize, map } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { TransactionViewModel } from '../../shared/models/view/transaction.view-model';
 
 @Component({
   selector: 'app-transactions',
@@ -15,7 +16,7 @@ import { DatePipe } from '@angular/common';
 })
 export class TransactionsComponent {
 
-  public transactions: Transaction[] = [];
+  public transactions: TransactionViewModel[];
   public isLoading = signal(true);
 
   constructor(
@@ -29,9 +30,10 @@ export class TransactionsComponent {
   private _getTransactions(): void {
     this.isLoading.set(true)
     this._transactionService.query()
-      .pipe(finalize(() => this.isLoading.set(false)))
-      .subscribe((transactions: Transaction[]) => {
-        this.transactions = transactions;
-    });
+      .pipe(
+        finalize(() => this.isLoading.set(false)),
+        map((transactions: Transaction[]) => transactions.map(transaction => TransactionViewModel.createFromApiModel(transaction)))
+      )
+      .subscribe((transactions: TransactionViewModel[]) => this.transactions = transactions);
   }
 }
