@@ -39,6 +39,16 @@ $spacing-sizes: (
     padding: $size;
   }
 
+  .px-#{$name} {
+    padding-left: $size;
+    padding-right: $size;
+  }
+
+  .py-#{name} {
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+
   .ml-#{$name} {
     margin-left: $size;
   }
@@ -69,5 +79,65 @@ $spacing-sizes: (
 
   .pb-#{name} {
     padding-bottom: $size;
+  }
+}
+
+// display options
+$display-values: block, inline, inline-block, flex, inline-flex, grid, inline-grid;
+$position-values: relative, absolute, fixed, sticky;
+$overflow: hidden, visible, scroll, auto;
+
+@each $display in $display-values {
+  .d-#{$display} {
+    display: $display;
+  }
+}
+
+@each $position in $position-values {
+  .position-#{$position} {
+    position: $position;
+  }
+}
+
+@each $overflow in $overflow {
+  .overflow-#{$overflow} {
+    overflow: $overflow;
+  }
+}
+
+// flex options
+$flex-directions: row, row-reverse, column, column-reverse;
+$flex-wrap: wrap, nowrap, wrap-reverse;
+$justify-content: start, end, center, space-between, space-around;
+$align-items: stretch, flex-start, flex-end, center, baseline;
+$align-content: stretch, flex-start, flex-end, center, space-between, space-around;
+
+@each $direction in $flex-directions {
+  .flex-#{$direction} {
+    flex-direction: $direction;
+  }
+}
+
+@each $wrap in $flex-wrap {
+  .flex-wrap-#{$wrap} {
+    flex-wrap: $wrap;
+  }
+}
+
+@each $justify in $justify-content {
+  .justify-content-#{$justify} {
+    justify-content: $justify;
+  }
+}
+
+@each $align in $align-items {
+  .align-items-#{$align} {
+    align-items: $align;
+  }
+}
+
+@each $align in $align-content {
+  .align-content-#{$align} {
+    align-content: $align;
   }
 }

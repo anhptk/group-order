@@ -1,6 +1,5 @@
-import { OrderStatusEnum } from "../../enums/order-status.enum";
+import { OrderStatus } from "../../enums/order.status";
 import { GroupOrderInfo } from "../api/group-order-info.model";
-import { OrderInfo } from "../api/order-info.model";
 import { OrderInfoViewModel } from "./order-info.view-model";
 import { MemberInfo } from "../api/member-info.model";
 
@@ -8,7 +7,7 @@ export class GroupOrderInfoViewModel {
   id: number;
   createdAt: string;
   hostMember: MemberInfo;
-  status: OrderStatusEnum;
+  status: OrderStatus;
   orders: OrderInfoViewModel[] = [];
   actualAmount?: number;
   loading: boolean;

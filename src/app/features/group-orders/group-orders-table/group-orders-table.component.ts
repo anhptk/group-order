@@ -7,7 +7,7 @@ import { GroupOrderInfoService } from '../../../shared/services/api/group-order-
 import { GroupOrderInfoViewModel } from '../../../shared/models/view/group-order-info.view-model';
 import { QueryGroupOrderInfoParams } from '../../../shared/models/api/group-order-info.model';
 import { AppDataService } from "../../../shared/services/auth/app-data.service";
-import { OrderStatusEnum } from '../../../shared/enums/order-status.enum';
+import { ORDER_STATUS } from '../../../shared/enums/order.status';
 import { MatDialog } from "@angular/material/dialog";
 import { DialogModule } from "@angular/cdk/dialog";
 import {
@@ -17,11 +17,12 @@ import { DatePipe, CommonModule } from '@angular/common';
 import { BaseTableComponent } from '../../../shared/ui/base-table/base-table.component';
 import { Observable, map } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-group-orders-table',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, DialogModule, DatePipe, MatPaginatorModule, CommonModule],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, DialogModule, DatePipe, MatPaginatorModule, CommonModule, StatusBadgeComponent],
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({height: '0px', minHeight: '0'})),
@@ -34,7 +35,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 })
 export class GroupOrdersTableComponent extends BaseTableComponent<GroupOrderInfoViewModel> {
   @Input() queryParams: QueryGroupOrderInfoParams;
-  public readonly OrderStatusEnum = OrderStatusEnum;
+  public readonly OrderStatusEnum = ORDER_STATUS;
 
   columnsToDisplay = ['time', 'host', 'amount', 'status', 'actions'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];

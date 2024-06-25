@@ -1,6 +1,12 @@
-<section class="text-align-right p-2">
-  @if (currentUser()) {
-    <app-member-info [memberInfo]="currentUser()" align="right">
+<div class="d-flex justify-content-space-between">
+  <section class="text-align-left pt-2 pl-4">
+    <a mat-fab routerLink="/">
+      <mat-icon>home</mat-icon>
+    </a>
+  </section>
+  <section class="text-align-right p-2">
+    @if (currentUser()) {
+      <app-member-info [memberInfo]="currentUser()" align="end">
         <a mat-menu-item routerLink="/my-profile">Profile</a>
 
         <a mat-menu-item routerLink="/orders">Orders</a>
@@ -8,13 +14,15 @@
         <a mat-menu-item routerLink="/group-orders">Group orders</a>
 
         <button mat-menu-item color="warn" (click)="logout()">Logout</button>
-    </app-member-info>
+      </app-member-info>
 
-  } @else {
-  <div class="m-2">
-    <button mat-flat-button color="primary" (click)="login()">Login Portal</button>
-  </div>
-  }
+    } @else {
+      <div class="m-2">
+        <button mat-flat-button color="primary" (click)="login()">Login Portal</button>
+      </div>
+    }
 
-</section>
+  </section>
+</div>
+
 <mat-divider></mat-divider>

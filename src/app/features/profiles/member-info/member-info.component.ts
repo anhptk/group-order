@@ -15,5 +15,5 @@ export class MemberInfoComponent {
   public memberInfo = input<MemberInfo>(undefined);
   public memberProfileUrl = computed(() => `url(${this.memberInfo().picture})`);
 
-  @Input() align: 'left' | 'right' | 'center' = 'left';
+  @Input() align: 'start' | 'center' | 'end' = 'start';
 }

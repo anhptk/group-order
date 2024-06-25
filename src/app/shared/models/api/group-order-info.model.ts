@@ -1,4 +1,4 @@
-import { OrderStatusEnum } from "../../enums/order-status.enum";
+import { OrderStatus } from "../../enums/order.status";
 import { MemberInfo } from "./member-info.model";
 import { OrderInfo } from "./order-info.model";
 
@@ -6,7 +6,7 @@ export class GroupOrderInfo {
   public id: number;
   public created_at: string;
   public orders: OrderInfo[] = [];
-  public status: OrderStatusEnum;
+  public status: OrderStatus;
   public actual_amount?: number;
 
   public host_member: MemberInfo;
@@ -24,7 +24,7 @@ export interface QueryGroupOrderInfoParams {
   host_member?: number;
   created_at_after?: string;
   created_at_before?: string;
-  status?: OrderStatusEnum;
+  status?: OrderStatus;
 }
 
 export interface CompleteGroupOrderInfoPayload {

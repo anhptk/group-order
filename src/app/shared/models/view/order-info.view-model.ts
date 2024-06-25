@@ -1,4 +1,4 @@
-import { OrderStatusEnum } from "../../enums/order-status.enum";
+import { OrderStatus } from "../../enums/order.status";
 import { OrderInfo, OrderItem } from "../api/order-info.model";
 
 export class OrderInfoViewModel {
@@ -9,7 +9,7 @@ export class OrderInfoViewModel {
     items: OrderItem[];
     orderedBy: string;
     groupOrderId: number;
-    status: OrderStatusEnum;
+    status: OrderStatus;
 
     constructor(data?: Partial<OrderInfoViewModel>) {
         Object.assign(this, data);

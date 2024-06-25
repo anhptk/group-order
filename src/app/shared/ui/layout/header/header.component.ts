@@ -13,7 +13,7 @@ import { MemberInfoComponent } from '../../../../features/profiles/member-info/m
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule, MatIconModule, MatMenuModule, MemberInfoComponent],
+  imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule, MatIconModule, MatMenuModule, MatButtonModule, MemberInfoComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

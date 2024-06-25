@@ -15,11 +15,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule,  } from '@angular/material/paginator';
 import { BaseTableComponent } from '../../../shared/ui/base-table/base-table.component';
+import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-orders-table',
   standalone: true,
-  imports: [MatTableModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule, CommonModule, MatFormFieldModule, MatInputModule , MatSortModule, MatPaginatorModule],
+  imports: [MatTableModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule, CommonModule, MatFormFieldModule, MatInputModule, MatSortModule, MatPaginatorModule, StatusBadgeComponent],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
 })

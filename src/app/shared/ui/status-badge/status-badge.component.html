@@ -1,0 +1,17 @@
+@switch (status) {
+    @case('draft') {
+        <span class="badge badge-color-warning">Draft</span>
+    }
+    @case('in_progress') {
+        <span class="badge badge-color-info">In Progress</span>
+    }
+    @case('completed') {
+        <span class="badge badge-color-success">Completed</span>
+    }
+    @case('cancelled') {
+        <span class="badge badge-color-danger">Cancelled</span>
+    }
+    @default {
+        <span class="badge badge-color-info">{{ status }}</span>
+    }
+}
