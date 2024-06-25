@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "deploy": "ng deploy",
-    "serve:ssr:group-order": "node dist/group-order/server/server.mjs"
+    "serve:ssr:group-order": "node dist/group-order/server/server.mjs",
+    "test-ci": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
+    "build-ci": "ng build --configuration=production --base-href /group-order/ --deploy-url /static/ --output-path=dist/group-order"
   },
   "private": true,
   "dependencies": {
