@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng deploy",
+    "deploy": "ng deploy --repo=https://github.com/anhptk/group-order.git",
     "serve:ssr:group-order": "node dist/group-order/server/server.mjs",
     "test-ci": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
     "build-ci": "ng build --configuration=production --base-href /group-order/ --deploy-url /static/ --output-path=dist/group-order"
@@ -27,6 +27,7 @@
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.1",
     "@auth0/auth0-angular": "^2.2.3",
+    "angular-cli-ghpages": "^2.0.1",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
