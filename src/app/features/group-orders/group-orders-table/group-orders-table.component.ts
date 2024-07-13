@@ -18,11 +18,12 @@ import { BaseTableComponent } from '../../../shared/ui/base-table/base-table.com
 import { Observable, map } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
+import { MemberDisplayComponent } from "../../../shared/ui/member-display/member-display.component";
 
 @Component({
   selector: 'app-group-orders-table',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, DialogModule, DatePipe, MatPaginatorModule, CommonModule, StatusBadgeComponent],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, DialogModule, DatePipe, MatPaginatorModule, CommonModule, StatusBadgeComponent, MemberDisplayComponent],
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({height: '0px', minHeight: '0'})),

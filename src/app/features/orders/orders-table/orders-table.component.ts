@@ -16,18 +16,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule,  } from '@angular/material/paginator';
 import { BaseTableComponent } from '../../../shared/ui/base-table/base-table.component';
 import { StatusBadgeComponent } from '../../../shared/ui/status-badge/status-badge.component';
+import { MemberDisplayComponent } from "../../../shared/ui/member-display/member-display.component";
 
 @Component({
   selector: 'app-orders-table',
   standalone: true,
-  imports: [MatTableModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule, CommonModule, MatFormFieldModule, MatInputModule, MatSortModule, MatPaginatorModule, StatusBadgeComponent],
+  imports: [MatTableModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule, CommonModule, MatFormFieldModule, MatInputModule, MatSortModule, MatPaginatorModule, StatusBadgeComponent, MemberDisplayComponent],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
 })
 export class OrdersTableComponent extends BaseTableComponent<OrderInfoViewModel> implements OnChanges {
   @Input() query: QueryOrderInfoParams;
   @Input() hideDate = false;
-  @Input() hideFilter = false;
+  @Input() hideFilter = true; // TODO: implement filter
   @Output() selectedChange: EventEmitter<Set<number>> = new EventEmitter();
   @Output() copyOrder: EventEmitter<OrderInfoViewModel> = new EventEmitter();
 

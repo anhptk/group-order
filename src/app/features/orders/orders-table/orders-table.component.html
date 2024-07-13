@@ -18,7 +18,7 @@
 
     <ng-container matColumnDef="memberName">
       <th mat-header-cell *matHeaderCellDef>Member</th>
-      <td mat-cell *matCellDef="let row">{{row.orderedBy}}</td>
+      <td mat-cell *matCellDef="let row"><app-member-display [member]="row.orderedBy"></app-member-display></td>
       <td mat-footer-cell *matFooterCellDef><b>Total </b></td>
     </ng-container>
 
