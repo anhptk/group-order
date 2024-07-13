@@ -35,6 +35,6 @@
   <h3>Transaction history</h3>
 
   @if (member) {
-    <app-transactions></app-transactions>
+    <app-transactions [specificMemberId]="member.id"></app-transactions>
   }
 </section>

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { TransactionService } from '../../shared/services/api/transaction.service';
 import { Transaction } from '../../shared/models/api/transaction.model';
 import { finalize, map } from 'rxjs';
@@ -15,7 +15,7 @@ import { TransactionViewModel } from '../../shared/models/view/transaction.view-
   styleUrl: './transactions.component.scss'
 })
 export class TransactionsComponent {
-
+  @Input() specificMemberId: number;
   public transactions: TransactionViewModel[];
   public isLoading = signal(true);
 
@@ -28,8 +28,10 @@ export class TransactionsComponent {
   }
 
   private _getTransactions(): void {
+    const params = this.specificMemberId ? { to_member: this.specificMemberId, from_member: this.specificMemberId } : {};
+
     this.isLoading.set(true)
-    this._transactionService.query()
+    this._transactionService.query(params)
       .pipe(
         finalize(() => this.isLoading.set(false)),
         map((transactions: Transaction[]) => transactions.map(transaction => TransactionViewModel.createFromApiModel(transaction)))
