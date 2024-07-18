@@ -1,12 +1,33 @@
 @if (!isLoading()) {
   @if (transactions?.length > 0) {
-    <ul>
-      @for (transaction of transactions; track transaction) {
-        <li>On {{transaction.createdAt | date}}, amount of {{transaction.amount}} has been transferred from
-          {{transaction.fromMember.name}} to {{transaction.toMember.name}}.
-        </li>
-      }
-    </ul>
+    <table mat-table [dataSource]="transactions">
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let index=index"> {{index + 1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.createdAt | date}} </td>
+        </ng-container>
+
+      <ng-container matColumnDef="from">
+        <th mat-header-cell *matHeaderCellDef> From </th>
+        <td mat-cell *matCellDef="let transaction"><app-member-display [member]="transaction.fromMember"></app-member-display></td>
+      </ng-container>
+
+      <ng-container matColumnDef="to">
+        <th mat-header-cell *matHeaderCellDef> To </th>
+        <td mat-cell *matCellDef="let transaction"><app-member-display [member]="transaction.toMember"></app-member-display></td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.amount}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   } @else {
     <div class="text-center mt-4">No transactions found.</div>
   }

@@ -46,7 +46,7 @@ export class MemberProfileComponent implements OnInit {
     }
 
     this._appDataService.currentUser$.subscribe((user: MemberInfo) => {
-      this._currentUserId = user.id;
+      this._currentUserId = user?.id;
 
       if (this.isMyProfile) {
         this._bindData(user);

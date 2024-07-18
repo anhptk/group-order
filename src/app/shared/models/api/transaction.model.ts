@@ -24,6 +24,7 @@ export interface CreateTransactionPayload {
 export interface QueryTransactionParams {
   from_member?: number;
   to_member?: number;
+  member?: number;
   created_at_after?: string;
   created_at_before?: string;
   type?: TransactionType;
