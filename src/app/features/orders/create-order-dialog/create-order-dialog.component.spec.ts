@@ -6,6 +6,7 @@ import { MockRequestHelperService } from '../../../shared/services/utils/tests/m
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MockDialogRef } from '../../../shared/services/utils/tests/mock-dialog';
 import { OrderInfoViewModel } from '../../../shared/models/view/order-info.view-model';
+import { MemberInfo } from '../../../shared/models/api/member-info.model';
 
 describe('CreateOrderDialogComponent', () => {
   let component: CreateOrderDialogComponent;
@@ -19,7 +20,7 @@ describe('CreateOrderDialogComponent', () => {
       createdAt: new Date(),
       isPaid: false,
       items: [],
-      orderedBy: 'Test User',
+      orderedBy: {name: 'test', id: 1} as MemberInfo,
       groupOrderId: 1
     });
   })

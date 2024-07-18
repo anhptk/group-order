@@ -1,20 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SecurityService } from './sercurity.service';
+import { ProfileService } from './profile.service';
 import { RequestHelperService } from '../utils/request-helper.service';
 import { MockRequestHelperService } from '../utils/tests/mock-request-helper-service';
 
-describe('SecurityService', () => {
-  let service: SecurityService;
+describe('ProfileService', () => {
+  let service: ProfileService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        SecurityService,
+        ProfileService,
         { provide: RequestHelperService, useValue: new MockRequestHelperService()}
       ]
     });
-    service = TestBed.inject(SecurityService);
+    service = TestBed.inject(ProfileService);
   });
 
   it('should be created', () => {

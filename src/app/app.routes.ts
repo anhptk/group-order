@@ -11,6 +11,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/group-orders/group-orders-dashboard/group-orders-dashboard.component').then(m => m.GroupOrdersDashboardComponent),
     },
     {
+        path: 'profiles/:memberId',
+        loadComponent: () => import('./features/profiles/member-profile/member-profile.component').then(m => m.MemberProfileComponent),
+    },
+    {
         path: 'my-profile',
         loadComponent: () => import('./features/profiles/member-profile/member-profile.component').then(m => m.MemberProfileComponent),
     },

@@ -11,6 +11,7 @@
 
 <mat-divider></mat-divider>
 
+@if (isMyProfile) {
 <section class="p-4 w-50">
   <h3>Update profile</h3>
   <form [formGroup]="mainForm">
@@ -30,6 +31,7 @@
     </button>
   </form>
 </section>
+}
 
 <section class="p-4 w-50">
   <h3>Transaction history</h3>

@@ -6,7 +6,7 @@ import { MemberInfo, UpdateMemberPayload } from '../../models/api/member-info.mo
 @Injectable({
   providedIn: 'root'
 })
-export class SecurityService {
+export class ProfileService {
 
   constructor(
     private readonly _requestHelper: RequestHelperService
@@ -18,5 +18,9 @@ export class SecurityService {
 
   public updateCurrentUser(payload: UpdateMemberPayload): Observable<void> {
     return this._requestHelper.patch('/members/me', payload);
+  }
+
+  public getMember(memberId: number): Observable<MemberInfo> {
+    return this._requestHelper.get(`/members/${memberId}`);
   }
 }

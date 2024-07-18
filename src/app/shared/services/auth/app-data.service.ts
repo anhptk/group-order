@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MemberInfo } from '../../models/api/member-info.model';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
-import { SecurityService } from '../api/sercurity.service';
+import { ProfileService } from '../api/profile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,11 @@ export class AppDataService {
   private _currentUser$ = new BehaviorSubject<MemberInfo | null>(null);
 
   constructor(
-    private readonly _securityService: SecurityService
+    private readonly _profileService: ProfileService
   ) { }
 
   public initializeUser(): void {
-    this._securityService.getCurrentUser()
+    this._profileService.getCurrentUser()
       .pipe(filter(user => !!user))
       .subscribe(user => {
         this._currentUser$.next(user);
