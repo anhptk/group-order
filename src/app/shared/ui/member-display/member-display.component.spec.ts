@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MemberDisplayComponent } from './member-display.component';
+import { RouterModule } from '@angular/router';
 
 describe('MemberDisplayComponent', () => {
   let component: MemberDisplayComponent;
@@ -8,7 +9,10 @@ describe('MemberDisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MemberDisplayComponent]
+      imports: [
+        MemberDisplayComponent,
+        RouterModule
+      ]
     })
     .compileComponents();
 
