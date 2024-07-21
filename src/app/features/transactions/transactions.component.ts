@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, signal, SimpleChanges } from '@angular/core';
 import { TransactionService } from '../../shared/services/api/transaction.service';
 import { Transaction } from '../../shared/models/api/transaction.model';
 import { finalize, map } from 'rxjs';
@@ -30,6 +30,12 @@ export class TransactionsComponent {
 
   ngOnInit() {
     this._getTransactions();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['specificMemberId']) {
+      this._getTransactions();
+    }
   }
 
   private _getTransactions(): void {

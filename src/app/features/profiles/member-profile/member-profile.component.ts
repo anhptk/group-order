@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { MemberInfo, UpdateMemberPayload } from '../../../shared/models/api/member-info.model';
 import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -11,16 +11,18 @@ import { ProfileService } from '../../../shared/services/api/profile.service';
 import { AppDataService } from '../../../shared/services/auth/app-data.service';
 import { TransactionsComponent } from '../../transactions/transactions.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TradeDialogComponent } from '../../transactions/trade-dialog/trade-dialog.component';
 
 @Component({
   selector: 'app-member-profile',
   standalone: true,
-  imports: [MatDividerModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButton, MatIcon, TransactionsComponent, RouterModule],
+  imports: [MatDividerModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButton, MatIcon, TransactionsComponent, RouterModule, MatDialogModule],
   templateUrl: './member-profile.component.html',
   styleUrl: './member-profile.component.scss'
 })
 export class MemberProfileComponent implements OnInit {
-  public member: MemberInfo;
+  public member: WritableSignal<MemberInfo> = signal(undefined);
   public mainForm: FormGroup<MemberProfileFormViewModel>;
 
   private _currentUserId: number;
@@ -30,27 +32,38 @@ export class MemberProfileComponent implements OnInit {
   constructor(
     private readonly _appDataService: AppDataService,
     private readonly _profileService: ProfileService,
-    private readonly _activatedRoute: ActivatedRoute
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _dialog: MatDialog
   ) {
     this._memberId = this._activatedRoute.snapshot.params['memberId'];
     this.mainForm = this._constructForm();
   }
 
   ngOnInit() {
-    if (!this._memberId) {
-      this.isMyProfile = true;
-    } else {
-      this._profileService.getMember(this._memberId).subscribe((member: MemberInfo) => {
-        this._bindData(member);
-      });
+    if (this._memberId) {
+      this._loadMemberData();
     }
 
     this._appDataService.currentUser$.subscribe((user: MemberInfo) => {
       this._currentUserId = user?.id;
 
-      if (this.isMyProfile) {
+      if (!this._memberId) {
         this._bindData(user);
       }
+    });
+
+    this._activatedRoute.paramMap.subscribe((params) => {
+      this._memberId = +params.get('memberId');
+
+      if (this._memberId) {
+        this._loadMemberData();
+      }
+    });
+  }
+
+  private _loadMemberData(): void {
+    this._profileService.getMember(this._memberId).subscribe((member: MemberInfo) => {
+      this._bindData(member);
     });
   }
 
@@ -63,10 +76,19 @@ export class MemberProfileComponent implements OnInit {
 
   private _bindData(member: MemberInfo): void {
     this.isMyProfile = this._currentUserId === member.id;
-    this.member = member;
+    this.member.set(member);
+    
+    if (this.isMyProfile) {
+      this._bindForm();
+    }
+  }
+
+  private _bindForm(): void {
+    if (!this.member()) return;
+
     this.mainForm.patchValue({
-      name: this.member?.name,
-      picture: this.member?.picture
+      name: this.member().name,
+      picture: this.member().picture
     });
   }
 
@@ -91,5 +113,23 @@ export class MemberProfileComponent implements OnInit {
     }
 
     return payload;
+  }
+
+  public openTradeDialog(): void {
+    const dialog = this._dialog.open(TradeDialogComponent, {
+      data: {
+        member: this.member()
+      }
+    });
+
+    dialog.afterClosed().subscribe((traded: boolean) => {
+      if (traded) {
+        this._appDataService.initializeUser();
+
+        if (!this.isMyProfile) {
+          this._loadMemberData();
+        }
+      }
+    });
   }
 }

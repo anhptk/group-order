@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>New transfer</h2>
+
+<mat-dialog-content>
+    <div class="d-flex justify-content-space-around align-items-center">
+        <div class="p-4">
+            You Send to:
+        </div>
+        <div class="p-4">
+            <app-member-display [member]="data.member"></app-member-display>
+        </div>
+    </div>
+
+
+    <mat-form-field class="w-100 mt-2">
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" placeholder="Enter possitive amount..." [formControl]="amountControl">
+    </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close class="mr-2">Close</button>
+  <app-submit-button [disabled]="!amountControl.valid" (action)="submitTrade()"
+                     [isSubmitting]="isSubmitting">Send
+  </app-submit-button>
+</mat-dialog-actions>
