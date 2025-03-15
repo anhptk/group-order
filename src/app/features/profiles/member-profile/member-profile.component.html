@@ -19,7 +19,7 @@
 <mat-divider></mat-divider>
 
 @if (isMyProfile) {
-<section class="p-4 w-50">
+  <section class="pt-4 w-50">
   <h3>Update profile</h3>
   <form [formGroup]="mainForm">
     <mat-form-field class="w-100 mt-2">
@@ -40,7 +40,7 @@
 </section>
 }
 
-<section class="p-4 w-50">
+<section class="pt-4 overflow-x-auto">
   <h3>Transaction history</h3>
 
   @if (member()) {

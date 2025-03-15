@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderItemFormViewModel } from '../../../shared/models/forms/order-info-form.view-model';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +15,7 @@ import { OrderInfoViewModel } from '../../../shared/models/view/order-info.view-
 @Component({
   selector: 'app-create-order-dialog',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatIcon, MatButtonModule, ReactiveFormsModule, MatInputModule, SubmitButtonComponent, MatDivider, MatDialogClose],
+  imports: [MatDialogModule, MatIcon, MatButtonModule, ReactiveFormsModule, MatInputModule, SubmitButtonComponent, MatDivider],
   templateUrl: './create-order-dialog.component.html',
   styleUrl: './create-order-dialog.component.scss'
 })
