@@ -36,7 +36,7 @@ export class NotificationService {
         });
     }
 
-    public pushFail(message): void {
+    public pushFail(message: string): void {
         this._snackBar.openFromComponent(NotificationMessageComponent, {
             data: {
                 message: message,

@@ -24,7 +24,11 @@ export const apiRequestInterceptor: HttpInterceptorFn = (req, next) => {
       }
     }),
     catchError(err => {
-      notificationService.pushFail('Something went wrong');
+      if (err.message) {
+        notificationService.pushFail(err.message);
+      } else {
+        notificationService.pushFail('Something went wrong');
+      }
       throw err;
     })
   );
