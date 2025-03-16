@@ -32,5 +32,3 @@ jobs:
         run: npm run test-ci --if-present
       - name: Build project
         run: npm run build-ci --if-present
-      - name: Deploy
-        run: npm run deploy --if-present

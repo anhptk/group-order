@@ -103,6 +103,14 @@ $overflow: hidden, visible, scroll, auto;
   .overflow-#{$overflow} {
     overflow: $overflow;
   }
+
+  .overflow-x-#{$overflow} {
+    overflow-x: $overflow;
+  }
+
+  .overflow-y-#{$overflow} {
+    overflow-y: $overflow;
+  }
 }
 
 // flex options

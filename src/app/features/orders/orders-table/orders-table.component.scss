@@ -8,5 +8,9 @@
 }
 
 .mat-column-actions, .mat-column-subtotal, .mat-column-status {
-    width: 10%
+    width: 10%;
+}
+
+.mat-column-status {
+    min-width: 150px;
 }

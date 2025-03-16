@@ -53,7 +53,7 @@ export class OrdersDashboardComponent {
   }
 
   public openCreateOrderDialog(): void {
-    const dialog = this._dialog.open(CreateOrderDialogComponent, { minWidth: '500px' });
+    const dialog = this._dialog.open(CreateOrderDialogComponent, { width: '500px', maxWidth: '100%' });
 
     dialog.afterClosed().subscribe(result => {
       if (result) {
