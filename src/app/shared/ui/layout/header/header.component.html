@@ -4,6 +4,13 @@
       <mat-icon>home</mat-icon>
       Home
     </a>
+    
+    @if (currentUser()) {
+      <button mat-button class="mt-2" (click)="openPrivateZone()">
+        <mat-icon>lock_person</mat-icon>
+        Private zone
+      </button>
+    }
   </section>
   <section class="text-align-right p-2">
     @if (currentUser()) {
