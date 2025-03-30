@@ -16,12 +16,12 @@
         <div class="mt-2">
             <button mat-button (click)="openCreateGroupDialog()"><mat-icon>add</mat-icon>Create group</button> 
             or
-            <a mat-button routerLink="/groups"><mat-icon>open_in_new</mat-icon>Join existing groups</a>
+            <a mat-button routerLink="/groups"><mat-icon>open_in_browser</mat-icon>Join existing groups</a>
         </div>
     }
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-flat-button color="primary" (click)="enterGroup()" [disabled]="!selectedGroup.valid">Enter</button>
-  <button mat-raised-button mat-dialog-close class="mr-2">Close</button>
+  <button mat-raised-button mat-dialog-close class="ml-2">Close</button>
 </mat-dialog-actions>

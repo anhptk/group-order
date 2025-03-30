@@ -24,7 +24,7 @@ export class GroupService {
     return this._requestHelper.get(`${this._baseUrl}/${id}`);
   }
 
-  public update(id: number, payload: Partial<CreateGroupPayload>): Observable<void> {
+  public update(id: number, payload: Partial<CreateGroupPayload>): Observable<Group> {
     return this._requestHelper.patch(`${this._baseUrl}/${id}`, payload);
   }
 

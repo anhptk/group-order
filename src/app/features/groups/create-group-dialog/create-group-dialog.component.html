@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>New group</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <mat-form-field class="w-100">
+            <mat-label>Group name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter group name" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+            <mat-label>Group description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Enter group description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+            <mat-label>Group logo</mat-label>
+            <input type="url" matInput formControlName="logo" placeholder="Enter group logo image URL">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <app-submit-button [disabled]="!form.valid" (action)="createGroup()"[isSubmitting]="isSubmitting()">Create
+    </app-submit-button>
+    <button mat-raised-button mat-dialog-close class="ml-2">Close</button>
+</mat-dialog-actions>
