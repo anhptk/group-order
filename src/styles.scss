@@ -10,3 +10,23 @@ html, body {
   overflow-x: hidden;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-typography {
+  h1, h2, h3, h4, h5, h6 { margin: 0; }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2, h3 {
+    font-size: 2rem;
+  }
+
+  h4, h5 {
+    font-size: 1.75rem;
+  }
+
+  h6 {
+    font-size: 1.5rem;
+  }
+}

@@ -77,7 +77,7 @@ $spacing-sizes: (
     padding-top: $size;
   }
 
-  .pb-#{name} {
+  .pb-#{$name} {
     padding-bottom: $size;
   }
 }

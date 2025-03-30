@@ -1,7 +1,8 @@
 <div class="d-flex justify-content-space-between">
-  <section class="text-align-left pt-2 pl-4">
-    <a mat-fab class="home-button" routerLink="/">
+  <section class="text-align-left pt-2 pb-2 pl-4">
+    <a mat-button class="mt-2" routerLink="/">
       <mat-icon>home</mat-icon>
+      Home
     </a>
   </section>
   <section class="text-align-right p-2">
@@ -18,7 +19,10 @@
 
     } @else {
       <div class="m-2">
-        <button mat-flat-button color="primary" (click)="login()">Login Portal</button>
+        <button mat-flat-button color="primary" (click)="login()">
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
       </div>
     }
 
