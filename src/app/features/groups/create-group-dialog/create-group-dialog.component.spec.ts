@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateGroupDialogComponent } from './create-group-dialog.component';
+import { GroupService } from '../../../shared/services/api/group.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CreateGroupDialogComponent', () => {
   let component: CreateGroupDialogComponent;
@@ -8,7 +11,11 @@ describe('CreateGroupDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateGroupDialogComponent]
+      imports: [CreateGroupDialogComponent, NoopAnimationsModule],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: GroupService, useValue: {} }
+      ]
     })
     .compileComponents();
 
