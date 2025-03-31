@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MemberInfo } from '../../../models/api/member-info.model';
 import { AppDataService } from '../../../services/auth/app-data.service';
@@ -9,20 +9,24 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '@auth0/auth0-angular';
 import { MemberInfoComponent } from '../../../../features/profiles/member-info/member-info.component';
+import { QuickSelectGroupsComponent } from '../../../../features/groups/quick-select-groups/quick-select-groups.component';
+import { DEFAULT_DIALOG_SIZE } from '../../../constants/dialog.constant';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [MatButtonModule, MatDialogModule, MatDividerModule, RouterModule, MatIconModule, MatMenuModule, MatButtonModule, MemberInfoComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
   public currentUser = signal<MemberInfo>(null);
 
   constructor(
     private readonly _appDataService: AppDataService,
-    private readonly _authService: AuthService
+    private readonly _authService: AuthService,
+    private readonly _dialog: MatDialog
   ) {
     this._subscribeToCurrentUser();
   }
@@ -42,5 +46,9 @@ export class HeaderComponent {
       .subscribe(() => {
         this._appDataService.logout();
       });
+  }
+
+  public openPrivateZone(): void {
+    this._dialog.open(QuickSelectGroupsComponent, DEFAULT_DIALOG_SIZE)
   }
 }

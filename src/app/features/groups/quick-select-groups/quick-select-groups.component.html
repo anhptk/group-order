@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Enter private group</h2>
+
+<mat-dialog-content>
+    <mat-form-field class="w-100">
+        <mat-label>Group</mat-label>
+        <mat-select [formControl]="selectedGroup">
+            @for (group of groups(); track group.id) {
+            <mat-option [value]="group.id">{{group.name}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    
+    <mat-slide-toggle [(ngModel)]="showGroupAction" labelPosition="before">Can not find your group?</mat-slide-toggle>
+    @if (showGroupAction) {
+        <div class="mt-2">
+            <button mat-button (click)="openCreateGroupDialog()"><mat-icon>add</mat-icon>Create group</button> 
+            or
+            <a mat-button routerLink="/groups"><mat-icon>open_in_browser</mat-icon>Join existing groups</a>
+        </div>
+    }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" (click)="enterGroup()" [disabled]="!selectedGroup.valid">Enter</button>
+  <button mat-raised-button mat-dialog-close class="ml-2">Close</button>
+</mat-dialog-actions>

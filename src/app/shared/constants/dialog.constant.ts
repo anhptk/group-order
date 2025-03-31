@@ -1,0 +1,1 @@
+export const DEFAULT_DIALOG_SIZE = { width: '500px', maxWidth: '100%' };
